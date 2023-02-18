@@ -367,5 +367,5 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
         return mRgba;
 
     }
-
+// Was ist das?
 }
