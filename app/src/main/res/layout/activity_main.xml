@@ -65,15 +65,16 @@
 
                     <TextView
                         android:id="@+id/product"
-                        android:layout_width="wrap_content"
+                        android:layout_width="125dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="25dp"
+                        android:layout_marginLeft="20dp"
                         android:layout_marginRight="25dp"
+                        android:layout_marginBottom="30dp"
                         android:insetLeft="0dp"
                         android:insetTop="0dp"
                         android:insetRight="0dp"
-                        android:insetBottom="30dp"
-                        android:text="Produkt"
+                        android:insetBottom="0dp"
+                        android:text="Produkt "
                         android:textSize="20sp" />
 
                     <Button

@@ -258,10 +258,6 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
     }
 
     private void saveTextAsCSV(String fileName, Text text) {
-        List<String> lines = new ArrayList<>();
-        List<String> row;
-        String line;
-
 
         resultString = text.getText();
         resultString = resultString.toLowerCase(); //alles klein
@@ -286,22 +282,24 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
 
         // Set the String object to the TextView
         textview.setText(finalString);
-        //String halp = topLevelList.toString();
-        //Text topLevelListTxt = halp;
-        //textview.setText(topLevelListTxt);
         Log.d("CameraActivity", "Out" + finalString);
-        //String filterdtext = topLevelList.toString();
-        // Create a new Text object and set its text to the String object
-        //Text textObject = new Text(finalString,languages);
+        String[] lines = finalString.split("\\r?\\n"); // split the text into lines
+/*
+        List<String> row = new ArrayList<>();
+        for (String line : lines) {
+            row = new ArrayList<>();
 
-        String[] Lines = finalString.split("\n");
-        for (String Line : lines) {
-            List<String> Row = new ArrayList<>();
-            for (Text.Element element : Line.getElements()) {
-                Row.add(element.getText());
+            for (Text.Element element : finalString.split(",")) {
+                if (element.getBoundingBox().top >= boundingBox.top &&
+                        element.getBoundingBox().bottom <= boundingBox.bottom &&
+                        element.getBoundingBox().left >= boundingBox.left &&
+                        element.getBoundingBox().right <= boundingBox.right) {
+                    row.add(element.getText());
+                }
             }
-            String csvRow = String.join(",", Row);
-            lines.add(csvRow);
+
+            line = String.join(",", row);
+            lines.add(line);
         }
 
         String content = String.join("\n", lines);
@@ -317,6 +315,8 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
             e.printStackTrace();
             Toast.makeText(this, "Bitte versuche sie es Erneut", Toast.LENGTH_SHORT).show();
         }
+
+ */
     }
 
 
@@ -367,5 +367,5 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
         return mRgba;
 
     }
-// Was ist das?
+
 }
