@@ -91,7 +91,8 @@ public class MainActivity extends AppCompatActivity {
         readlagerbestand();
 
     }
-    private List<rowes> rowOne = new ArrayList<>();
+    private List<List> wholeList = new ArrayList<>();
+
 
     private void readlagerbestand() {
         InputStream is = getResources().openRawResource(R.raw.lagerbestand);
@@ -100,27 +101,43 @@ public class MainActivity extends AppCompatActivity {
         String line = "";
 
         try {
-            // step over header
+            // Step over header
             reader.readLine();
 
             while ((line = reader.readLine()) != null) {
-                //Log.d("Check my Shelf", "Line" + line);
                 // Split by ","
                 String[] tokens = line.split(",");
                 // Read data
-                rowes sample = new rowes();
-                sample.setNummer(Integer.parseInt(tokens[0]));
-                sample.setProdukt(tokens[1]);
-                sample.setAnzahl(Integer.parseInt(tokens[2]));
+                int nummer = Integer.parseInt(tokens[0]);
+                String produkt = tokens[1];
+                int anzahl = Integer.parseInt(tokens[2]);
 
-                rowOne.add(sample);
+                // resett Lists
+                List<Object> innerList = new ArrayList<>();
+                List<Integer> nummerList = new ArrayList<>();
+                List<String> produktList = new ArrayList<>();
+                List<Integer> anzahlList = new ArrayList<>();
+                // Add elements to separate lists
+                nummerList.add(nummer);
+                produktList.add(produkt);
+                anzahlList.add(anzahl);
+                innerList.add(nummerList);
+                innerList.add(produktList);
+                innerList.add(anzahlList);
 
-                Log.d("Check my Shelf", "Just created:" + sample);
+                // Add inner list to outer list
+                wholeList.add(innerList);
+
+                Log.d("Check my Shelf", "Just created: " + innerList);
             }
         } catch (IOException e) {
-            Log.wtf("Check my Shelf", "Error reading data file on line" + line, e);
+            Log.wtf("Check my Shelf", "Error reading data file on line " + line, e);
             throw new RuntimeException(e);
         }
-    }
-}
 
+        Log.d("Alles Ausgeben", "Alles: " + wholeList);
+        Log.d("spezielles ausgeben", "test: " + wholeList.get(2).get(1));
+    }
+
+
+}

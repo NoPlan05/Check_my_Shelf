@@ -1,5 +1,8 @@
 package com.example.imagepro;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class rowes {
     private int Nummer;
     private String Produkt;
