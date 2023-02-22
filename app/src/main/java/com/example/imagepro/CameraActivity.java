@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
@@ -50,13 +51,18 @@ import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.imgproc.Imgproc;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 ///////////
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
@@ -175,7 +181,7 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
                     } else {
                         take_picture_button.setColorFilter(Color.BLACK);
                         textview.setVisibility(View.GONE);
-                        current_image.setVisibility(View.GONE);
+                        //current_image.setVisibility(View.GONE);
                         mOpenCvCameraView.enableView();
                         textview.setText("");
                         Camera_or_recognizeText = "camera";
@@ -241,7 +247,6 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
                 startActivity(new Intent(CameraActivity.this,storageRecognitionActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
             }
         });
-        new csvWriting();
 
 
     };
@@ -268,7 +273,7 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
         }
         return null;
     }
-    public void saveTextAsCSV(String fileName, Text text) {
+    private void saveTextAsCSV(String fileName, Text text) {
         List<String> lines = new ArrayList<>();
         List<String> row;
         String line;
@@ -489,8 +494,11 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
             }
             Log.d("BonFilter", "Anzahl hinzugefügt:" + topLevelList);
 
-            //[108, kg.x0,99, eur/kg]???
+            readlagerbestand();
+            adddata();
+
         }
+
 
 
         // Convert the List object to a String object
@@ -537,6 +545,112 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
             e.printStackTrace();
             Toast.makeText(this, "Bitte versuche sie es Erneut", Toast.LENGTH_SHORT).show();
         }*/
+    }
+
+
+    //[108, kg.x0,99, eur/kg]???
+    private List<List> wholeList = new ArrayList<>();
+
+    private void readlagerbestand() {
+        InputStream is = null;
+
+        try {
+            Context context = this;
+            File dir = context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
+            File file = new File(dir, "data.csv");
+            is = new FileInputStream(file);
+        } catch (FileNotFoundException e) {
+            is = getResources().openRawResource(R.raw.lagerbestand);
+        }
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+
+        String line = "";
+
+        try {
+            // Step over header
+            reader.readLine();
+
+            while ((line = reader.readLine()) != null) {
+                // Split by ","
+                String[] tokens = line.split(",");
+                // Read data
+                String produkt = tokens[0];
+                int anzahl = Integer.parseInt(tokens[1]);
+
+                // resett Lists and create list with values of current line
+                List<Object> innerList = new ArrayList<>();
+                innerList.add(produkt);
+                innerList.add(anzahl);
+
+                // Add inner list to outer list
+                wholeList.add(innerList);
+
+                Log.d("Check my Shelf", "Just created: " + innerList);
+            }
+        } catch (IOException e) {
+            Log.wtf("Check my Shelf", "Error reading data file on line " + line, e);
+            throw new RuntimeException(e);
+        }
+
+        Log.d("Alles Ausgeben", "Alles: " + wholeList);
+        Log.d("spezielles ausgeben", "test: " + wholeList.get(0).get(1));
+        //wholeList.get(0).set(2, 55);
+        //Log.d("spezielles ausgeben", "55?: " + wholeList.get(0).get(2));
+    }
+
+    private void adddata(){
+        for (int counter = 0; counter < topLevelList.size(); counter++) {
+            for (int innercounter = 0; innercounter < wholeList.size(); innercounter++) {
+                if (wholeList.get(innercounter).get(0).equals(topLevelList.get(counter).get(0))) {
+                    int num_1 = 0;
+                    int num_2 = 0;
+                    num_1 = (int) wholeList.get(innercounter).get(1);
+                    num_2 = Integer.parseInt(topLevelList.get(counter).get(1));
+                    wholeList.get(innercounter).set(1, num_1+num_2);
+                    break;
+                }else{
+                    if(wholeList.get(innercounter).get(0).equals("Produkt")){
+                        wholeList.get(innercounter).set(0, topLevelList.get(counter).get(0));
+                        wholeList.get(innercounter).set(1, topLevelList.get(counter).get(1));
+                        break;
+                    }else{
+                        Toast.makeText(CameraActivity.this, "Es gab einen Fehler, Ihre Liste könnte voll sein", Toast.LENGTH_LONG).show();
+                    }
+
+                }
+            }
+
+        }
+        writeCsv(this);
+    }
+    private void writeCsv(Context context) {
+        // Get the directory where the file will be saved
+        File dir = context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
+
+        // Create the CSV file
+        File file = new File(dir, "data.csv");
+
+        try {
+            // Open a file output stream
+            FileOutputStream fos = new FileOutputStream(file);
+
+            // Create an output writer
+            OutputStreamWriter writer = new OutputStreamWriter(fos);
+
+            // Write some data to the file
+            writer.write("Produkt,Anzahl\n");
+            for (int counter = 0; counter < wholeList.size(); counter++) {
+                writer.write("" + wholeList.get(counter).get(0) + "," + wholeList.get(counter).get(1) + "\n");
+            }
+            Log.d("csvWriting", "test");
+
+            // Close the writer and output stream
+            writer.close();
+            fos.close();
+        } catch (IOException e) {
+            // Handle the exception
+            e.printStackTrace();
+        }
     }
 
 
@@ -587,4 +701,5 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
         return mRgba;
 
     }
+// Was ist das?
 }

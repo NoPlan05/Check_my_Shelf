@@ -33,6 +33,12 @@
             android:textColor="@color/white"
             android:textSize="30sp"
             android:textStyle="bold" />
+        <ImageView
+            android:id="@+id/button_update"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="80dp"
+            android:background="@drawable/button_update_image"/>
     </LinearLayout>
 
     <LinearLayout
@@ -89,7 +95,7 @@
                     android:fontFamily="monospace"
                     android:textStyle="bold"
                     android:paddingTop="50dp"
-                    android:gravity="center_horizontal"/>
+                    android:gravity="center_horizontal" />
 
                 <LinearLayout
                     android:id="@+id/section_1"
@@ -157,6 +163,11 @@
                         android:text="-"
                         android:textColor="@color/white"
                         android:textSize="30sp" />
+                    <ImageView
+                        android:id="@+id/button_delete_1"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/delete_button_image"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/section_2"
@@ -224,6 +235,11 @@
                         android:text="-"
                         android:textColor="@color/white"
                         android:textSize="30sp" />
+                    <ImageView
+                        android:id="@+id/button_delete_2"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/delete_button_image"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -292,6 +308,11 @@
                         android:text="-"
                         android:textColor="@color/white"
                         android:textSize="30sp" />
+                    <ImageView
+                        android:id="@+id/button_delete_3"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/delete_button_image"/>
                 </LinearLayout>
 
 

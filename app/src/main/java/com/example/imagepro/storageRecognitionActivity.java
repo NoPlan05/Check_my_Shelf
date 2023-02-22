@@ -130,14 +130,14 @@ public class storageRecognitionActivity extends AppCompatActivity {
                     InputImage image=InputImage.fromBitmap(bitmap, 0);
                     //pass this image to textRecognizer
                     Task<Text> result=textRecognizer.process(image).addOnSuccessListener(new OnSuccessListener<Text>() {
-                        @Override
-                        public void onSuccess(Text text) {
-                            // text contain all recgnize text
-                            text_view.setText(text.getText());
-                            Log.d("Storage_activity", "Out:"+text.getText());
-                            //CameraActivity.saveTextAsCSV("Lagerbestand", text);
-                        }
-                    })
+                                @Override
+                                public void onSuccess(Text text) {
+                                    // text contain all recgnize text
+                                    text_view.setText(text.getText());
+                                    Log.d("Storage_activity", "Out:"+text.getText());
+
+                                }
+                            })
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {

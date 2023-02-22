@@ -55,6 +55,10 @@ public class MainActivity extends AppCompatActivity {
     private Button button_minus_2;
     private Button button_plus_3;
     private Button button_minus_3;
+    private ImageView button_delete_1;
+    private ImageView button_delete_2;
+    private ImageView button_delete_3;
+    private ImageView button_update;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,10 +89,20 @@ public class MainActivity extends AppCompatActivity {
                 // Convert value to a number and increment it
                 Integer count = Integer.parseInt(countString);
                 count++;
+                for(int plusonecounter = 0; plusonecounter < wholeList.size(); plusonecounter++){
+                    if (wholeList.get(plusonecounter).get(1).equals(countString)) {
+                        wholeList.get(plusonecounter).set(1, count);
+                        writeCsv(MainActivity.this);
+                        readlagerbestand();
+                        sortlagerbestand();
+                        //Log.d("Klick", " erfolkreich geaendert?");
+                        break;
+                    }
+                }
                 // Display the new value in the text view.
                 number_1.setText(String.valueOf(count));
                 //save the cange
-                wholeList.get(0).set(2, count);
+                //wholeList.get(0).set(1, count);
                 writeCsv(MainActivity.this);
             }
         });
@@ -102,10 +116,20 @@ public class MainActivity extends AppCompatActivity {
                 int count = Integer.parseInt(countString);
                 if (count > 0) {
                     count--;
+                    for(int minusonecounter = 0; minusonecounter < wholeList.size(); minusonecounter++){
+                        if (wholeList.get(minusonecounter).get(1).equals(countString)) {
+                            wholeList.get(minusonecounter).set(1, count);
+                            writeCsv(MainActivity.this);
+                            readlagerbestand();
+                            sortlagerbestand();
+                            //Log.d("Klick", " erfolkreich geaendert?");
+                            break;
+                        }
+                    }
                     // Display the new value in the text view.
                     number_1.setText(String.valueOf(count));
                     //save the cange
-                    wholeList.get(0).set(2, count);
+                    //wholeList.get(0).set(1, count);
                     writeCsv(MainActivity.this);
 
                     } else {
@@ -123,10 +147,20 @@ public class MainActivity extends AppCompatActivity {
                 // Convert value to a number and increment it
                 Integer count = Integer.parseInt(countString);
                 count++;
+                for(int plustwocounter = 0; plustwocounter < wholeList.size(); plustwocounter++){
+                    if (wholeList.get(plustwocounter).get(1).equals(countString)) {
+                        wholeList.get(plustwocounter).set(1, count);
+                        writeCsv(MainActivity.this);
+                        readlagerbestand();
+                        sortlagerbestand();
+                        //Log.d("Klick", " erfolkreich geaendert?");
+                        break;
+                    }
+                }
                 // Display the new value in the text view.
                 number_2.setText(String.valueOf(count));
                 //save the cange
-                wholeList.get(1).set(2, count);
+                //wholeList.get(1).set(1, count);
                 writeCsv(MainActivity.this);
             }
         });
@@ -140,10 +174,20 @@ public class MainActivity extends AppCompatActivity {
                 int count = Integer.parseInt(countString);
                 if (count > 0) {
                     count--;
+                    for(int minustwocounter = 0; minustwocounter < wholeList.size(); minustwocounter++){
+                        if (wholeList.get(minustwocounter).get(1).equals(countString)) {
+                            wholeList.get(minustwocounter).set(1, count);
+                            writeCsv(MainActivity.this);
+                            readlagerbestand();
+                            sortlagerbestand();
+                            //Log.d("Klick", " erfolkreich geaendert?");
+                            break;
+                        }
+                    }
                     // Display the new value in the text view.
                     number_2.setText(String.valueOf(count));
                     //save the cange
-                    wholeList.get(1).set(2, count);
+                    //wholeList.get(1).set(1, count);
                     writeCsv(MainActivity.this);
 
                 } else {
@@ -161,10 +205,21 @@ public class MainActivity extends AppCompatActivity {
                 // Convert value to a number and increment it
                 Integer count = Integer.parseInt(countString);
                 count++;
+                for(int plusthreecounter = 0; plusthreecounter < wholeList.size(); plusthreecounter++){
+                    Log.d("Klick", " for schleife gestartet");
+                    if (wholeList.get(plusthreecounter).get(1).equals(countString)) {
+                        wholeList.get(plusthreecounter).set(1, count);
+                        writeCsv(MainActivity.this);
+                        readlagerbestand();
+                        sortlagerbestand();
+                        Log.d("Klick", " erfolkreich geaendert?");
+                        break;
+                    }
+                }
                 // Display the new value in the text view.
                 number_3.setText(String.valueOf(count));
                 //save the cange
-                wholeList.get(2).set(2, count);
+                //wholeList.get(2).set(1, count);
                 writeCsv(MainActivity.this);
             }
         });
@@ -178,10 +233,21 @@ public class MainActivity extends AppCompatActivity {
                 int count = Integer.parseInt(countString);
                 if (count > 0) {
                     count--;
+                    for(int minusthreecounter = 0; minusthreecounter < wholeList.size(); minusthreecounter++){
+                        Log.d("Klick", " for schleife gestartet");
+                        if (wholeList.get(minusthreecounter).get(1).equals(count)) {
+                            wholeList.get(minusthreecounter).set(1, count);
+                            readlagerbestand();
+                            sortlagerbestand();
+                            writeCsv(MainActivity.this);
+                            Log.d("Klick", " erfolkreich geaendert?");
+                            break;
+                        }
+                    }
                     // Display the new value in the text view.
                     number_3.setText(String.valueOf(count));
                     //save the cange
-                    wholeList.get(2).set(2, count);
+                    //wholeList.get(2).set(1, count);
                     writeCsv(MainActivity.this);
 
                 } else {
@@ -189,6 +255,72 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
+        });
+        button_delete_1 = findViewById(R.id.button_delete_1);
+        button_delete_1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Log.d("Klick", "Button erfolkreich geklickt");
+                for(int onecounter = 0; onecounter < wholeList.size(); onecounter++){
+                    //Log.d("Klick", "For schleife ausgefürt");
+                    if (wholeList.get(onecounter).get(0).equals(product_1.getText())){
+                        wholeList.get(onecounter).set(0, "Produkt");
+                        wholeList.get(onecounter).set(1, 0);
+                        section_1.setVisibility(View.GONE);
+                        writeCsv(MainActivity.this);
+                        readlagerbestand();
+                        sortlagerbestand();
+                        //Log.d("Klick", " erfolkreich geaendert?");
+                        break;
+                    }
+                }
+
+                }
+        });
+        button_delete_2 = findViewById(R.id.button_delete_2);
+        button_delete_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for(int twocounter = 0; twocounter < wholeList.size(); twocounter++){
+                    if (wholeList.get(twocounter).get(0).equals(product_2.getText())){
+                        wholeList.get(twocounter).set(0, "Produkt");
+                        wholeList.get(twocounter).set(1, 0);
+                        section_2.setVisibility(View.GONE);
+                        writeCsv(MainActivity.this);
+                        readlagerbestand();
+                        sortlagerbestand();
+                        break;
+                    }
+                }
+
+            }
+        });
+        button_delete_3 = findViewById(R.id.button_delete_3);
+        button_delete_3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for(int threecounter = 0; threecounter < wholeList.size(); threecounter++){
+                    if (wholeList.get(threecounter).get(0).equals(product_3.getText())){
+                        wholeList.get(threecounter).set(0, "Produkt");
+                        wholeList.get(threecounter).set(1, 0);
+                        section_3.setVisibility(View.GONE);
+                        writeCsv(MainActivity.this);
+                        readlagerbestand();
+                        sortlagerbestand();
+                        break;
+                    }
+                }
+
+            }
+        });
+        button_update = findViewById(R.id.button_update);
+        button_update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                writeCsv(MainActivity.this);
+                readlagerbestand();
+                sortlagerbestand();
+            }
         });
 
         readlagerbestand();
@@ -198,6 +330,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private List<List> wholeList = new ArrayList<>();
+
 
 
     private void readlagerbestand() {
@@ -223,19 +356,22 @@ public class MainActivity extends AppCompatActivity {
                 // Split by ","
                 String[] tokens = line.split(",");
                 // Read data
-                int nummer = Integer.parseInt(tokens[0]);
-                String produkt = tokens[1];
-                int anzahl = Integer.parseInt(tokens[2]);
+                String produkt = tokens[0];
+                int anzahl;
+                try {
+                    anzahl = Integer.parseInt(tokens[1]);
+                } catch (NumberFormatException e) {
+                    // handle non-numeric input here (e.g. log an error, skip the line, etc.)
+                    continue;
+                }
 
                 // resett Lists and create list with values of current line
                 List<Object> innerList = new ArrayList<>();
-                innerList.add(nummer);
                 innerList.add(produkt);
                 innerList.add(anzahl);
 
                 // Add inner list to outer list
                 wholeList.add(innerList);
-
                 Log.d("Check my Shelf", "Just created: " + innerList);
             }
         } catch (IOException e) {
@@ -243,8 +379,9 @@ public class MainActivity extends AppCompatActivity {
             throw new RuntimeException(e);
         }
 
+
         Log.d("Alles Ausgeben", "Alles: " + wholeList);
-        Log.d("spezielles ausgeben", "test: " + wholeList.get(0).get(2));
+        Log.d("spezielles ausgeben", "test: " + wholeList.get(0).get(1));
         //wholeList.get(0).set(2, 55);
         //Log.d("spezielles ausgeben", "55?: " + wholeList.get(0).get(2));
     }
@@ -307,9 +444,9 @@ public class MainActivity extends AppCompatActivity {
         int productCounter = 1; // start with the first product TextView
 
         for (int counter = 0; counter < wholeList.size(); counter++) {
-            String productName = wholeList.get(counter).get(1).toString();
+            String productName = wholeList.get(counter).get(0).toString();
             //productName = productName.substring(1, productName.length() - 1);
-            String productquantity = wholeList.get(counter).get(2).toString();
+            String productquantity = wholeList.get(counter).get(1).toString();
             //productquantity = productquantity.substring(1, productquantity.length() - 1);
 
 
@@ -358,9 +495,9 @@ public class MainActivity extends AppCompatActivity {
                 OutputStreamWriter writer = new OutputStreamWriter(fos);
 
                 // Write some data to the file
-                writer.write("Nummer,Produkt,Anzahl\n");
+                writer.write("Produkt,Anzahl\n");
                 for (int counter = 0; counter < wholeList.size(); counter++) {
-                    writer.write("" + counter + "," + wholeList.get(counter).get(1) + "," + wholeList.get(counter).get(2) + "\n");
+                    writer.write("" + wholeList.get(counter).get(0) + "," + wholeList.get(counter).get(1) + "\n");
                 }
                 Log.d("csvWriting", "test");
 
