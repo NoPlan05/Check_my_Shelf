@@ -324,9 +324,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         readlagerbestand();
-        writeCsv(this);
         sortlagerbestand();
-
+        writeCsv(this);
     }
 
     private List<List> wholeList = new ArrayList<>();

@@ -347,9 +347,11 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
 
             //Ende wird gekürzt
             int[] gefundenIndex2 = search("summe", topLevelList);
-            if (gefundenIndex != null) {
+            if (gefundenIndex2 != null && gefundenIndex2.length > 0) {
                 topLevelList = topLevelList.subList(0, gefundenIndex2[0]);
                 Log.d("BonFilter", "gefunden: _summe_");
+            } else {
+                Log.d("BonFilter", "Nicht gefunden: _summe_");
             }
             Log.d("BonFilter", "Liste gekürzt:" + topLevelList);
 
