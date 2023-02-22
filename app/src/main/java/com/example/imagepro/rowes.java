@@ -31,7 +31,7 @@ public class rowes {
     public void setAnzahl(int anzahl) {
         Anzahl = anzahl;
     }
-
+/*
     @Override
     public String toString() {
         return "row"+ Nummer +"{" +
@@ -39,4 +39,6 @@ public class rowes {
                 ", Anzahl=" + Anzahl +
                 '}';
     }
+
+ */
 }

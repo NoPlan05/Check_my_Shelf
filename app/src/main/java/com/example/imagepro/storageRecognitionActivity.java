@@ -135,7 +135,7 @@ public class storageRecognitionActivity extends AppCompatActivity {
                             // text contain all recgnize text
                             text_view.setText(text.getText());
                             Log.d("Storage_activity", "Out:"+text.getText());
-
+                            //CameraActivity.saveTextAsCSV("Lagerbestand", text);
                         }
                     })
                             .addOnFailureListener(new OnFailureListener() {

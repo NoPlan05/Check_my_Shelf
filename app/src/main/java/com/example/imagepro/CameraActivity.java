@@ -241,6 +241,7 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
                 startActivity(new Intent(CameraActivity.this,storageRecognitionActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
             }
         });
+        new csvWriting();
 
 
     };
@@ -257,21 +258,243 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
         }
     }
 
-    private void saveTextAsCSV(String fileName, Text text) {
+    public static int[] search(String text, List<List<String>> topLevelList) {
+        for (int i = 0; i < topLevelList.size(); i++) {
+            for (int j = 0; j < topLevelList.get(i).size(); j++) {
+                if (topLevelList.get(i).get(j).contains(text)) {
+                    return new int[] {i, j};
+                }
+            }
+        }
+        return null;
+    }
+    public void saveTextAsCSV(String fileName, Text text) {
+        List<String> lines = new ArrayList<>();
+        List<String> row;
+        String line;
 
         resultString = text.getText();
         resultString = resultString.toLowerCase(); //alles klein
-        System.out.print(resultString); //Kontrollausgabe
+        Log.d("CameraActivity", "Der gescannte Text aber klein:\n" + resultString);
 
+        //in verschachtelte Liste
         String[] topLevelElements = resultString.split("\n");  // bei Absätzen neues Element
 
         for (String topLevelElement : topLevelElements) {
-            List subList = new ArrayList<>();
+            List<String> subList = new ArrayList<>();
+            String[] subListElements = topLevelElement.split(" ");
+
+            for (String subListElement : subListElements) {
+                subList.add(subListElement);
+            }
+
             topLevelList.add(subList);
         }
+        Log.d("BonFilter", "verschachtelte Liste erstellt:" + topLevelList);
+
+        //Bonart wird festgestellt
+        String art = "";
+        for (List<String> subList : topLevelList) {
+            for (String element : subList) {
+                if (element.toLowerCase().contains("rewe") || element.toLowerCase().contains("de812706034") || element.toLowerCase().contains("de325633917")) {
+                    art = "rewe";
+                }
+                else if (element.toLowerCase().contains("aldi") || element.toLowerCase().contains("de127135543")) {
+                    art = "aldi";
+                }
+                else if (element.toLowerCase().contains("www.netto-online.de") || element.toLowerCase().contains("marken-discount") || element.toLowerCase().contains("de213413670")) {
+                    art = "netto";
+                }
+                else if (element.toLowerCase().contains("lidl")) {
+                    art = "lidl";
+                }
+                else if (element.toLowerCase().contains("kaufland")) {
+                    art = "kaufland";
+                }
+            }
+        }
+        Log.d("BonFilter", "Bonart:" + art);
+
+        //Ausgaben
+        if (!art.equals("")) {
+            Toast.makeText(this, "Bon erkannt:" + art, Toast.LENGTH_SHORT).show();
+            if (!art.equals("rewe")) {
+                textview.setText("Bitte beachten: wir unterstützen nur Rewe Bons");
+            }
+        } else {
+            Toast.makeText(this, "Bon nicht erkannt", Toast.LENGTH_SHORT).show();
+            textview.setText("Bitte Nochmal versuchen...\nBitte beachten: wir unterstützen nur Rewe Bons");
+        }
+
+        //bei Rewe Bons:
+        if (art.equals("rewe")) {
+
+            //anfang kürzen
+            int[] gefundenIndex = search("eur", topLevelList); //eur vor wichtige und 1 dahinter, wenn nicht eur bei mind. 11
+            if (gefundenIndex != null && gefundenIndex[0]<7) {
+                topLevelList = topLevelList.subList(gefundenIndex[0] + 1, topLevelList.size());
+                Log.d("BonFilter", "gefunden: _eur_");
+            } else {
+                topLevelList = topLevelList.subList(4, topLevelList.size());
+                Log.d("BonFilter", "eur nicht gefunden");
+            }
+            Log.d("BonFilter", "verschachtelte Liste update:" + topLevelList);
+
+            //Ende wird gekürzt
+            int[] gefundenIndex2 = search("summe", topLevelList);
+            if (gefundenIndex != null) {
+                topLevelList = topLevelList.subList(0, gefundenIndex2[0]);
+                Log.d("BonFilter", "gefunden: _summe_");
+            }
+            Log.d("BonFilter", "Liste gekürzt:" + topLevelList);
+
+            //unnötiges raus
+            for (int i = 0; i < topLevelList.size(); i++) {
+                for (int j = topLevelList.get(i).size() - 1; j >= 0; j--) {
+                    if (topLevelList.get(i).get(j).equals("a") || topLevelList.get(i).get(j).equals("b") || topLevelList.get(i).get(j).contains("*") || topLevelList.get(i).get(j).contains("eur") || topLevelList.get(i).get(j).equals("x")  || topLevelList.get(i).get(j).equals("4a") ) {
+                        topLevelList.get(i).remove(j);
+                    }
+                }
+            }
+            //.equals, .contains
+
+            //Leere Listen entfernen
+            for (int i = topLevelList.size() - 1; i >= 0; i--) { //In diesem Beispiel beginnt die Schleife mit dem letzten Element in der Liste und geht dann rückwärts bis zum ersten Element. Auf diese Weise wird sichergestellt, dass das Entfernen eines Elements keine Auswirkungen auf die Indizes der folgenden Elemente hat.
+                if (topLevelList.get(i).isEmpty()) {
+                    topLevelList.remove(i);
+                }
+            }
+            Log.d("BonFilter", "entschlackt:" + topLevelList);
+
+            List<Integer> protectedindizes = new ArrayList<>();
+            //sucht stückzahlen um diese zu schützen
+            for (int i = 0; i < topLevelList.size(); i++) {
+                for (int j = topLevelList.get(i).size() - 1; j >= 0; j--) {
+                    if (topLevelList.get(i).get(j).contains("stk")) {
+                        protectedindizes.add(i);
+                    }
+                }
+            }
+            Log.d("BonFilter", "geschützt sind:" + protectedindizes);
+
+            //Elemente ohne Schrift werden entfernt
+            for (int i = topLevelList.size() - 1; i >= 0; i--) { //In diesem Beispiel beginnt die Schleife mit dem letzten Element in der Liste und geht dann rückwärts bis zum ersten Element. Auf diese Weise wird sichergestellt, dass das Entfernen eines Elements keine Auswirkungen auf die Indizes der folgenden Elemente hat.
+                if (!protectedindizes.contains(i)) {// Prüfen, ob i in protectedindizes enthalten ist
+                    for (int j = topLevelList.get(i).size() - 1; j >= 0; j--) {
+                        if (!topLevelList.get(i).get(j).matches(".*[a-zA-Z].*")) {// Prüfen, ob das Element an der Stelle (i,j) keine Buchstaben enthält
+                            topLevelList.get(i).remove(j);
+                        }
+                    }
+                }
+            }
+
+            // Bei Pfand die ganze liste löschen
+            for (int i = 0; i < topLevelList.size(); i++) {
+                for (int j = topLevelList.get(i).size() - 1; j >= 0; j--) {
+                    if (topLevelList.get(i).get(j).contains("pfand")) {
+                        topLevelList.remove(i);
+                    }
+                }
+            }
+
+            //Leere Listen entfernen
+            for (int i = topLevelList.size() - 1; i >= 0; i--) { //In diesem Beispiel beginnt die Schleife mit dem letzten Element in der Liste und geht dann rückwärts bis zum ersten Element. Auf diese Weise wird sichergestellt, dass das Entfernen eines Elements keine Auswirkungen auf die Indizes der folgenden Elemente hat.
+                if (topLevelList.get(i).isEmpty()) {
+                    topLevelList.remove(i);
+                }
+            }
+
+            Log.d("BonFilter", "ohne Preise:" + topLevelList);
+
+            //Bei stk nur index 0
+            for (int i = 0; i < topLevelList.size(); i++) {
+                for (int j = 0; j < topLevelList.get(i).size(); j++) {
+                    if (topLevelList.get(i).get(j).contains("stk")) {
+                        for (int k = topLevelList.get(i).size() - 1; k >= 1; k--) {
+                            topLevelList.get(i).remove(k);
+                        }
+                        break;
+                    }
+                }
+            }
+
+            //Leere Listen entfernen
+            for (int i = topLevelList.size() - 1; i >= 0; i--) { //In diesem Beispiel beginnt die Schleife mit dem letzten Element in der Liste und geht dann rückwärts bis zum ersten Element. Auf diese Weise wird sichergestellt, dass das Entfernen eines Elements keine Auswirkungen auf die Indizes der folgenden Elemente hat.
+                if (topLevelList.get(i).isEmpty()) {
+                    topLevelList.remove(i);
+                }
+            }
+            Log.d("BonFilter", "Sückzahlen richtig:" + topLevelList);
+
+            //Produktnamen wieder zusammen
+            List<String> result = new ArrayList<>();
+            for (List<String> innerList : topLevelList) {
+                String joined = String.join(" ", innerList);
+                result.add(joined);
+            }
+            Log.d("BonFilter", "Produktnamen richtig:" + result);
+
+            //Stückzahl zu Produkt (davor) (was wenn kein produkt davor? dann auch hinweis)
+            List<List<String>> nestedList = new ArrayList<>();
+            topLevelList.clear();
+            List<String> currentList = new ArrayList<>();
+            for (String str : result) {
+                if (str.matches("\\d+")) { // Prüfen, ob das Element nur aus Zahlen besteht
+                    currentList.add(str); // Zum aktuellen Element hinzufügen
+                } else {
+                    if (!currentList.isEmpty()) { // Prüfen, ob es bereits Zahlen-Elemente gibt
+                        topLevelList.add(currentList); // Zur verschachtelten Liste hinzufügen
+                        currentList = new ArrayList<>(); // Neues leeres Element erstellen
+                    }
+                    currentList.add(str); // Zum aktuellen Element hinzufügen
+                }
+            }
+            if (!currentList.isEmpty()) { // Prüfen, ob das letzte Element eine Zahlenliste ist
+                topLevelList.add(currentList);
+            }
+            Log.d("BonFilter", "zuordnung Stückzahlen:" + topLevelList);
+
+            //leerg (leerg./leergut) komplett raus mit stk
+            for (int i = topLevelList.size() - 1; i >= 0; i--) {
+                for (int j = topLevelList.get(i).size() - 1; j >= 0; j--) {
+                    if (topLevelList.get(i).get(j).contains("eerg")) {
+                        topLevelList.remove(i);
+                        break; // Wenn ein Element entfernt wurde, muss die äußere Schleife nicht fortgesetzt werden
+                    }
+                }
+            }
+            Log.d("BonFilter", "leergut entfehrnt:" + topLevelList);
+
+            //wenn len name nur 2 löschen
+            for (int i = topLevelList.size() - 1; i >= 0; i--) { //In diesem Beispiel beginnt die Schleife mit dem letzten Element in der Liste und geht dann rückwärts bis zum ersten Element. Auf diese Weise wird sichergestellt, dass das Entfernen eines Elements keine Auswirkungen auf die Indizes der folgenden Elemente hat.
+                if (topLevelList.get(i).get(0).length()<4) {
+                    topLevelList.remove(i);
+                }
+            }
+            Log.d("BonFilter", "Namen < 4 gelöscht:" + topLevelList);
+
+            //bei keiner Anzahl 1
+            for (int i = topLevelList.size() - 1; i >= 0; i--) { //In diesem Beispiel beginnt die Schleife mit dem letzten Element in der Liste und geht dann rückwärts bis zum ersten Element. Auf diese Weise wird sichergestellt, dass das Entfernen eines Elements keine Auswirkungen auf die Indizes der folgenden Elemente hat.
+                if (topLevelList.get(i).size()==1){
+                    topLevelList.get(i).add("1");
+                }
+            }
+            Log.d("BonFilter", "Anzahl hinzugefügt:" + topLevelList);
+
+            //wenn anzahl kein int = 2
+            for (int i = topLevelList.size() - 1; i >= 0; i--) { //In diesem Beispiel beginnt die Schleife mit dem letzten Element in der Liste und geht dann rückwärts bis zum ersten Element. Auf diese Weise wird sichergestellt, dass das Entfernen eines Elements keine Auswirkungen auf die Indizes der folgenden Elemente hat.
+                if (!topLevelList.get(i).get(1).matches("\\d+")){
+                    topLevelList.get(i).set(1, "2");
+                }
+            }
+            Log.d("BonFilter", "Anzahl hinzugefügt:" + topLevelList);
+
+            //[108, kg.x0,99, eur/kg]???
+        }
+
 
         // Convert the List object to a String object
-        StringBuilder stringBuilder = new StringBuilder();
+        /*StringBuilder stringBuilder = new StringBuilder();
         for (List<String> subList : topLevelList) {
             for (String element : subList) {
                 stringBuilder.append(element).append(" "); // append each element to the StringBuilder
@@ -279,27 +502,26 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
             stringBuilder.append("\n"); // append a newline character to separate the sublists
         }
         String finalString = stringBuilder.toString().trim(); // convert the StringBuilder to a String and remove leading/trailing whitespace
+        System.out.print(finalString);
 
         // Set the String object to the TextView
         textview.setText(finalString);
+        //String halp = topLevelList.toString();
+        //Text topLevelListTxt = halp;
+        //textview.setText(topLevelListTxt);
         Log.d("CameraActivity", "Out" + finalString);
-        String[] lines = finalString.split("\\r?\\n"); // split the text into lines
-/*
-        List<String> row = new ArrayList<>();
-        for (String line : lines) {
-            row = new ArrayList<>();
+        //String filterdtext = topLevelList.toString();
+        // Create a new Text object and set its text to the String object
+        //Text textObject = new Text(finalString,languages);*/
 
-            for (Text.Element element : finalString.split(",")) {
-                if (element.getBoundingBox().top >= boundingBox.top &&
-                        element.getBoundingBox().bottom <= boundingBox.bottom &&
-                        element.getBoundingBox().left >= boundingBox.left &&
-                        element.getBoundingBox().right <= boundingBox.right) {
-                    row.add(element.getText());
-                }
+        /*String[] Lines = finalString.split("\n");
+        for (String Line : lines) {
+            List<String> Row = new ArrayList<>();
+            for (Text.Element element : Line.getElements()) {
+                Row.add(element.getText());
             }
-
-            line = String.join(",", row);
-            lines.add(line);
+            String csvRow = String.join(",", Row);
+            lines.add(csvRow);
         }
 
         String content = String.join("\n", lines);
@@ -314,9 +536,7 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
         } catch (IOException e) {
             e.printStackTrace();
             Toast.makeText(this, "Bitte versuche sie es Erneut", Toast.LENGTH_SHORT).show();
-        }
-
- */
+        }*/
     }
 
 
@@ -367,5 +587,4 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
         return mRgba;
 
     }
-
 }

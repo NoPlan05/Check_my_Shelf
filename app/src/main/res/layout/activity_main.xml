@@ -37,7 +37,34 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="500sp">
+        android:layout_height="500sp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/add_product_Layout"
+            android:layout_width="match_parent"
+            android:layout_height="500sp"
+            android:orientation="vertical"
+            android:visibility="gone">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Neues Produkt"
+                android:textColor="@color/white"
+                android:fontFamily="monospace"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginLeft="10dp"/>
+            <EditText
+                android:id="@+id/new_product_name"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:inputType="text"
+                android:textColor="@color/white"/>
+
+
+        </LinearLayout>
+
 
         <ScrollView
             android:layout_width="match_parent"
@@ -52,19 +79,32 @@
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
 
+                <TextView
+                    android:id="@+id/noproduct"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sie Haben noch keine Produkte einsortiert!"
+                    android:textColor="@color/gray"
+                    android:textSize="30dp"
+                    android:fontFamily="monospace"
+                    android:textStyle="bold"
+                    android:paddingTop="50dp"
+                    android:gravity="center_horizontal"/>
+
                 <LinearLayout
-                    android:id="@+id/section"
+                    android:id="@+id/section_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="top|center"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/round_corner"
                     android:gravity="center_horizontal"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
 
                     <TextView
-                        android:id="@+id/product"
+                        android:id="@+id/product_1"
                         android:layout_width="125dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
@@ -78,7 +118,7 @@
                         android:textSize="20sp" />
 
                     <Button
-                        android:id="@+id/button_plus"
+                        android:id="@+id/button_plus_1"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_marginEnd="25dp"
@@ -93,7 +133,7 @@
                         android:textSize="30sp" />
 
                     <TextView
-                        android:id="@+id/number"
+                        android:id="@+id/number_1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="25dp"
@@ -105,7 +145,74 @@
                         android:textSize="25sp" />
 
                     <Button
-                        android:id="@+id/button_minus"
+                        android:id="@+id/button_minus_1"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginEnd="25dp"
+                        android:backgroundTint="@color/dark_gray"
+                        android:insetLeft="0dp"
+                        android:insetTop="0dp"
+                        android:insetRight="0dp"
+                        android:insetBottom="0dp"
+                        android:text="-"
+                        android:textColor="@color/white"
+                        android:textSize="30sp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/section_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top|center"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/round_corner"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+
+                    <TextView
+                        android:id="@+id/product_2"
+                        android:layout_width="125dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="25dp"
+                        android:layout_marginBottom="30dp"
+                        android:insetLeft="0dp"
+                        android:insetTop="0dp"
+                        android:insetRight="0dp"
+                        android:insetBottom="0dp"
+                        android:text="Produkt "
+                        android:textSize="20sp" />
+
+                    <Button
+                        android:id="@+id/button_plus_2"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginEnd="25dp"
+                        android:backgroundTint="@color/dark_gray"
+                        android:insetLeft="0dp"
+                        android:insetTop="0dp"
+                        android:insetRight="0dp"
+                        android:insetBottom="0dp"
+                        android:text="+"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="30sp" />
+
+                    <TextView
+                        android:id="@+id/number_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="25dp"
+                        android:insetLeft="0dp"
+                        android:insetTop="0dp"
+                        android:insetRight="0dp"
+                        android:insetBottom="0dp"
+                        android:text="0"
+                        android:textSize="25sp" />
+
+                    <Button
+                        android:id="@+id/button_minus_2"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_marginEnd="25dp"
@@ -119,117 +226,75 @@
                         android:textSize="30sp" />
                 </LinearLayout>
 
-                <TextView
+                <LinearLayout
+                    android:id="@+id/section_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="langer text für text"
-                    android:textColor="@color/white"
-                    android:textSize="30dp" />
+                    android:layout_gravity="top|center"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/round_corner"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="langer text für text"
-                    android:textColor="@color/white"
-                    android:textSize="30dp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="langer text für text"
-                    android:textColor="@color/white"
-                    android:textSize="30dp" />
+                    <TextView
+                        android:id="@+id/product_3"
+                        android:layout_width="125dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="25dp"
+                        android:layout_marginBottom="30dp"
+                        android:insetLeft="0dp"
+                        android:insetTop="0dp"
+                        android:insetRight="0dp"
+                        android:insetBottom="0dp"
+                        android:text="Produkt "
+                        android:textSize="20sp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="langer text für text"
-                    android:textColor="@color/white"
-                    android:textSize="30dp" />
+                    <Button
+                        android:id="@+id/button_plus_3"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginEnd="25dp"
+                        android:backgroundTint="@color/dark_gray"
+                        android:insetLeft="0dp"
+                        android:insetTop="0dp"
+                        android:insetRight="0dp"
+                        android:insetBottom="0dp"
+                        android:text="+"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="30sp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="langer text für text"
-                    android:textColor="@color/white"
-                    android:textSize="30dp" />
+                    <TextView
+                        android:id="@+id/number_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="25dp"
+                        android:insetLeft="0dp"
+                        android:insetTop="0dp"
+                        android:insetRight="0dp"
+                        android:insetBottom="0dp"
+                        android:text="0"
+                        android:textSize="25sp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="langer text für text"
-                    android:textColor="@color/white"
-                    android:textSize="30dp" />
+                    <Button
+                        android:id="@+id/button_minus_3"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginEnd="25dp"
+                        android:backgroundTint="@color/dark_gray"
+                        android:insetLeft="0dp"
+                        android:insetTop="0dp"
+                        android:insetRight="0dp"
+                        android:insetBottom="0dp"
+                        android:text="-"
+                        android:textColor="@color/white"
+                        android:textSize="30sp" />
+                </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="langer text für text"
-                    android:textColor="@color/white"
-                    android:textSize="30dp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="langer text für text"
-                    android:textColor="@color/white"
-                    android:textSize="30dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="langer text für text"
-                    android:textColor="@color/white"
-                    android:textSize="30dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="langer text für text"
-                    android:textColor="@color/white"
-                    android:textSize="30dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="langer text für text"
-                    android:textColor="@color/white"
-                    android:textSize="30dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="langer text für text"
-                    android:textColor="@color/white"
-                    android:textSize="30dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="langer text für text"
-                    android:textColor="@color/white"
-                    android:textSize="30dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="langer text für text"
-                    android:textColor="@color/white"
-                    android:textSize="30dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="langer text für text"
-                    android:textColor="@color/white"
-                    android:textSize="30dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="langer text für text"
-                    android:textColor="@color/white"
-                    android:textSize="30dp" />
 
             </LinearLayout>
         </ScrollView>
@@ -259,6 +324,13 @@
             android:layout_height="50dp"
             android:background="@drawable/storage_image_white"
             android:textAllCaps="false" />
+        <ImageView
+            android:id="@+id/add_button"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="25dp"
+            android:background="@drawable/add_button_image"/>
+
     </LinearLayout>
 
 
