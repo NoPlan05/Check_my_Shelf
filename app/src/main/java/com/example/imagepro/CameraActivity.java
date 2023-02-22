@@ -1,8 +1,6 @@
 package com.example.imagepro;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -11,7 +9,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
@@ -35,9 +32,6 @@ import com.google.mlkit.vision.text.Text;
 import com.google.mlkit.vision.text.TextRecognition;
 import com.google.mlkit.vision.text.TextRecognizer;
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions;
-import com.google.mlkit.nl.languageid.IdentifiedLanguage;
-import com.google.mlkit.nl.languageid.LanguageIdentification;
-import com.google.mlkit.nl.languageid.LanguageIdentifier;
 //import com.google.mlkit.samples.nl.languageid.R;
 
 
@@ -49,25 +43,22 @@ import org.opencv.android.Utils;
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
-import org.opencv.imgproc.Imgproc;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 ///////////
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
-import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.stream.*;
-import java.util.Collections;
+import java.util.Map;
 //////////
 
 public class CameraActivity extends Activity implements CameraBridgeViewBase.CvCameraViewListener2{
@@ -496,57 +487,12 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
             }
             Log.d("BonFilter", "Anzahl hinzugefügt:" + topLevelList);
 
-            readlagerbestand();
-            adddata();
+
 
         }
+        adddata();
+        readlagerbestand();
 
-
-
-        // Convert the List object to a String object
-        /*StringBuilder stringBuilder = new StringBuilder();
-        for (List<String> subList : topLevelList) {
-            for (String element : subList) {
-                stringBuilder.append(element).append(" "); // append each element to the StringBuilder
-            }
-            stringBuilder.append("\n"); // append a newline character to separate the sublists
-        }
-        String finalString = stringBuilder.toString().trim(); // convert the StringBuilder to a String and remove leading/trailing whitespace
-        System.out.print(finalString);
-
-        // Set the String object to the TextView
-        textview.setText(finalString);
-        //String halp = topLevelList.toString();
-        //Text topLevelListTxt = halp;
-        //textview.setText(topLevelListTxt);
-        Log.d("CameraActivity", "Out" + finalString);
-        //String filterdtext = topLevelList.toString();
-        // Create a new Text object and set its text to the String object
-        //Text textObject = new Text(finalString,languages);*/
-
-        /*String[] Lines = finalString.split("\n");
-        for (String Line : lines) {
-            List<String> Row = new ArrayList<>();
-            for (Text.Element element : Line.getElements()) {
-                Row.add(element.getText());
-            }
-            String csvRow = String.join(",", Row);
-            lines.add(csvRow);
-        }
-
-        String content = String.join("\n", lines);
-
-        try {
-            File file = new File(getExternalFilesDir(null), fileName + ".csv");
-            FileWriter fileWriter = new FileWriter(file);
-            fileWriter.write(finalString);
-            fileWriter.close();
-            Toast.makeText(this, "Text wurde gescannet", Toast.LENGTH_SHORT).show();
-            Toast.makeText(getApplicationContext(), "File saved to " + file.getAbsolutePath(), Toast.LENGTH_SHORT).show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            Toast.makeText(this, "Bitte versuche sie es Erneut", Toast.LENGTH_SHORT).show();
-        }*/
     }
 
 
@@ -587,7 +533,7 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
                 // Add inner list to outer list
                 wholeList.add(innerList);
 
-                Log.d("Check my Shelf", "Just created: " + innerList);
+                Log.d("Camera", "Just created: " + innerList);
             }
         } catch (IOException e) {
             Log.wtf("Check my Shelf", "Error reading data file on line " + line, e);
@@ -600,31 +546,44 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
         //Log.d("spezielles ausgeben", "55?: " + wholeList.get(0).get(2));
     }
 
-    private void adddata(){
-        for (int counter = 0; counter < topLevelList.size(); counter++) {
-            for (int innercounter = 0; innercounter < wholeList.size(); innercounter++) {
-                if (wholeList.get(innercounter).get(0).equals(topLevelList.get(counter).get(0))) {
-                    int num_1 = 0;
-                    int num_2 = 0;
-                    num_1 = (int) wholeList.get(innercounter).get(1);
-                    num_2 = Integer.parseInt(topLevelList.get(counter).get(1));
-                    wholeList.get(innercounter).set(1, num_1+num_2);
-                    break;
-                }else{
-                    if(wholeList.get(innercounter).get(0).equals("Produkt")){
-                        wholeList.get(innercounter).set(0, topLevelList.get(counter).get(0));
-                        wholeList.get(innercounter).set(1, topLevelList.get(counter).get(1));
-                        break;
-                    }else{
-                        Toast.makeText(CameraActivity.this, "Es gab einen Fehler, Ihre Liste könnte voll sein", Toast.LENGTH_LONG).show();
-                    }
+    private void adddata() {
+        Map<String, Integer> dataMap = new HashMap<>();
 
-                }
-            }
-
+        // Fill the dataMap with values from wholeList
+        for (List<Object> item : wholeList) {
+            String key = item.get(0).toString();
+            int value = Integer.parseInt(item.get(1).toString());
+            dataMap.put(key, value);
         }
+
+        // Update the dataMap with values from topLevelList
+        for (List<String> item : topLevelList) {
+            String key = item.get(0);
+            int value = Integer.parseInt(item.get(1));
+
+            if (dataMap.containsKey(key)) {
+                int oldValue = dataMap.get(key);
+                dataMap.put(key, oldValue + value);
+            } else {
+                dataMap.put(key, value);
+            }
+        }
+
+        // Update wholeList with values from dataMap
+        wholeList.clear();
+        for (Map.Entry<String, Integer> entry : dataMap.entrySet()) {
+            String key = entry.getKey();
+            int value = entry.getValue();
+            List<Object> item = new ArrayList<>();
+            item.add(key);
+            item.add(value);
+            wholeList.add(item);
+        }
+
+        // Write the updated data to CSV file
         writeCsv(this);
     }
+
     private void writeCsv(Context context) {
         // Get the directory where the file will be saved
         File dir = context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
@@ -632,27 +591,20 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
         // Create the CSV file
         File file = new File(dir, "data.csv");
 
-        try {
-            // Open a file output stream
-            FileOutputStream fos = new FileOutputStream(file);
+        try (FileOutputStream fos = new FileOutputStream(file);
+             OutputStreamWriter writer = new OutputStreamWriter(fos)) {
 
-            // Create an output writer
-            OutputStreamWriter writer = new OutputStreamWriter(fos);
-
-            // Write some data to the file
+            // Write data to the file
             writer.write("Produkt,Anzahl\n");
             for (int counter = 0; counter < wholeList.size(); counter++) {
                 writer.write("" + wholeList.get(counter).get(0) + "," + wholeList.get(counter).get(1) + "\n");
             }
-            Log.d("csvWriting", "test");
 
-            // Close the writer and output stream
-            writer.close();
-            fos.close();
         } catch (IOException e) {
             // Handle the exception
             e.printStackTrace();
         }
+
     }
 
 
@@ -703,5 +655,4 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
         return mRgba;
 
     }
-// Was ist das?
 }

@@ -356,13 +356,7 @@ public class MainActivity extends AppCompatActivity {
                 String[] tokens = line.split(",");
                 // Read data
                 String produkt = tokens[0];
-                int anzahl;
-                try {
-                    anzahl = Integer.parseInt(tokens[1]);
-                } catch (NumberFormatException e) {
-                    // handle non-numeric input here (e.g. log an error, skip the line, etc.)
-                    continue;
-                }
+                int anzahl = Integer.parseInt(tokens[1]);
 
                 // resett Lists and create list with values of current line
                 List<Object> innerList = new ArrayList<>();
@@ -371,13 +365,13 @@ public class MainActivity extends AppCompatActivity {
 
                 // Add inner list to outer list
                 wholeList.add(innerList);
-                Log.d("Check my Shelf", "Just created: " + innerList);
+
+                Log.d("Camera", "Just created: " + innerList);
             }
         } catch (IOException e) {
             Log.wtf("Check my Shelf", "Error reading data file on line " + line, e);
             throw new RuntimeException(e);
         }
-
 
         Log.d("Alles Ausgeben", "Alles: " + wholeList);
         Log.d("spezielles ausgeben", "test: " + wholeList.get(0).get(1));
