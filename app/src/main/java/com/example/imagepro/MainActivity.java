@@ -1,22 +1,19 @@
 package com.example.imagepro;
 
-import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -26,19 +23,16 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import org.opencv.android.OpenCVLoader;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,15 +55,42 @@ public class MainActivity extends AppCompatActivity {
     private Button button_minus_2;
     private Button button_plus_3;
     private Button button_minus_3;
-    private ImageView button_delete_1;
-    private ImageView button_delete_2;
-    private ImageView button_delete_3;
+    private Button button_plus_4;
+    private Button button_minus_4;
+    private Button button_plus_5;
+    private Button button_minus_5;
+    private Button button_plus_6;
+    private Button button_minus_6;
+    private Button button_plus_7;
+    private Button button_minus_7;
+    private Button button_plus_8;
+    private Button button_minus_8;
+    private Button button_plus_9;
+    private Button button_minus_9;
+    private Button button_plus_10;
+    private Button button_minus_10;
+    private Button button_plus_11;
+    private Button button_minus_11;
+    private Button button_plus_12;
+    private Button button_minus_12;
+
+
+    private ImageView cancel_button;
+    private ImageView apply_button;
+    private ConstraintLayout container_new_product;
+    private ConstraintLayout container_buttons_new_product;
+
+    private EditText entry_field_product_name;
+    private EditText entry_field_product_number;
     private ImageView button_update;
+    private ImageView add_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        readlagerbestand();
+        sortlagerbestand();
 
         ColorStateList colorStateList = getResources().getColorStateList(R.color.dark_gray);
         button_minus_1 = findViewById(R.id.button_minus_1);
@@ -93,8 +114,64 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, storageRecognitionActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                readlagerbestand();
+                sortlagerbestand();
+                writeCsv();
             }
         });
+
+        add_button = findViewById(R.id.add_button);
+        cancel_button = findViewById(R.id.cancel_button);
+        container_new_product = findViewById(R.id.container_new_product);
+        container_buttons_new_product = findViewById(R.id.container_buttons_new_product);
+        entry_field_product_name = findViewById(R.id.entry_field_product_name);
+        add_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                container_new_product.setVisibility(View.VISIBLE);
+                container_buttons_new_product.setVisibility(View.VISIBLE);
+                storage_Image_button.setVisibility(View.GONE);
+                camera_button.setVisibility(View.GONE);
+                add_button.setVisibility(View.GONE);
+                entry_field_product_name.requestFocus();
+                InputMethodManager imm = (InputMethodManager)
+                        getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.showSoftInput(entry_field_product_name, InputMethodManager.SHOW_IMPLICIT);
+            }
+        });
+        cancel_button = findViewById(R.id.cancel_button);
+        cancel_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                container_new_product.setVisibility(View.GONE);
+                container_buttons_new_product.setVisibility(View.GONE);
+                storage_Image_button.setVisibility(View.VISIBLE);
+                camera_button.setVisibility(View.VISIBLE);
+                add_button.setVisibility(View.VISIBLE);
+
+            }
+
+        });
+        entry_field_product_name = findViewById(R.id.entry_field_product_name);
+        entry_field_product_number = findViewById(R.id.entry_field_product_number);
+
+        apply_button = findViewById(R.id.apply_button);
+        apply_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<List<String>> topLevelList = new ArrayList<>(Arrays.asList());
+                List<String> notTopLevelList = new ArrayList<>();
+                topLevelList.clear();
+                notTopLevelList.clear();
+                notTopLevelList.add(entry_field_product_name.getText().toString());
+                notTopLevelList.add(entry_field_product_number.getText().toString());
+                topLevelList.add(notTopLevelList);
+                adddata(topLevelList);
+            }
+        });
+
+
+
         button_plus_1 = findViewById(R.id.button_plus_1);
         number_1 = findViewById(R.id.number_1);
         button_plus_1.setOnClickListener(new View.OnClickListener() {
@@ -996,7 +1073,6 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
-
         button_update = findViewById(R.id.button_update);
         button_update.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1005,6 +1081,7 @@ public class MainActivity extends AppCompatActivity {
                 sortlagerbestand();
             }
         });
+
 
     }
 
@@ -1065,7 +1142,7 @@ public class MainActivity extends AppCompatActivity {
         //Log.d("spezielles ausgeben", "55?: " + wholeList.get(0).get(2));
     }
 
-    private TextView noproduct;
+    private TextView no_product;
     private TextView product_1;
     private TextView product_2;
     private TextView product_3;
@@ -1092,22 +1169,22 @@ public class MainActivity extends AppCompatActivity {
     private TextView number_11;
     private TextView number_12;
     /////////////////////////
-    private LinearLayout section_1;
-    private LinearLayout section_2;
-    private LinearLayout section_3;
-    private LinearLayout section_4;
-    private LinearLayout section_5;
-    private LinearLayout section_6;
-    private LinearLayout section_7;
-    private LinearLayout section_8;
-    private LinearLayout section_9;
-    private LinearLayout section_10;
-    private LinearLayout section_11;
-    private LinearLayout section_12;
+    private ConstraintLayout section_1;
+    private ConstraintLayout section_2;
+    private ConstraintLayout section_3;
+    private ConstraintLayout section_4;
+    private ConstraintLayout section_5;
+    private ConstraintLayout section_6;
+    private ConstraintLayout section_7;
+    private ConstraintLayout section_8;
+    private ConstraintLayout section_9;
+    private ConstraintLayout section_10;
+    private ConstraintLayout section_11;
+    private ConstraintLayout section_12;
 
 
     private void sortlagerbestand() {
-        noproduct = findViewById(R.id.noproduct);
+        no_product = findViewById(R.id.no_product);
         product_1 = findViewById(R.id.product_1);
         product_2 = findViewById(R.id.product_2);
         product_3 = findViewById(R.id.product_3);
@@ -1168,7 +1245,7 @@ public class MainActivity extends AppCompatActivity {
                         product_1.setText(productName);
                         section_1.setVisibility(View.VISIBLE);
                         number_1.setText(productquantity);
-                        noproduct.setVisibility(View.GONE);
+                        no_product.setVisibility(View.GONE);
                         break;
                     case 2:
                         product_2.setText(productName);
@@ -1314,6 +1391,14 @@ public class MainActivity extends AppCompatActivity {
         }
         readlagerbestand();
         sortlagerbestand();
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        EditText editText = findViewById(R.id.entry_field_product_number);
+        EditText editText1 = findViewById(R.id.entry_field_product_name);
+        editText.setText("");
+        editText1.setText("");
     }
 }
 

@@ -1,342 +1,1238 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    android:gravity="center_horizontal"
-    android:orientation="vertical"
     android:scrollbarDefaultDelayBeforeFade="1000"
     android:scrollbarSize="8dp"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:background="@color/black"
-        android:paddingTop="5dp">
 
-        <TextView
-            android:id="@+id/AppName"
-            android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/AppName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:fontFamily="monospace"
+        android:text="@string/app_name"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/button_update"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/button_update_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ScrollView
+        android:id="@+id/scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        android:scrollbarDefaultDelayBeforeFade="1000"
+        android:scrollbarSize="6dp"
+        app:layout_constraintBottom_toTopOf="@+id/storage_Image_button"
+        app:layout_constraintTop_toBottomOf="@+id/AppName">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="0dp"
-            android:fontFamily="monospace"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/no_product"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:fontFamily="monospace"
+                android:gravity="center"
+                android:text="@string/no_product_string"
+                android:textColor="@color/gray"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/section_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/round_corner"
+                android:gravity="center_vertical|start"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toTopOf="parent"
+                android:visibility="gone">
+
+
+                <TextView
+                    android:id="@+id/product_1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Produkt"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.6" />
+
+                <Button
+                    android:id="@+id/button_plus_1"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:backgroundTint="@color/dark_gray"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/plus"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_1"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintStart_toEndOf="@+id/product_1"
+                    app:layout_constraintTop_toTopOf="@+id/section_1"
+                    app:layout_constraintWidth_min="48dp"
+                    app:layout_constraintWidth_percent="0.12" />
+
+                <TextView
+                    android:id="@+id/number_1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_1"
+                    app:layout_constraintEnd_toStartOf="@+id/button_minus_1"
+                    app:layout_constraintStart_toEndOf="@+id/button_plus_1"
+                    app:layout_constraintTop_toTopOf="@+id/section_1"
+                    app:layout_constraintWidth_percent="0.12" />
+
+                <Button
+                    android:id="@+id/button_minus_1"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="5dp"
+                    android:backgroundTint="@color/dark_gray"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/minus"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_1"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="@+id/section_1"
+                    app:layout_constraintTop_toTopOf="@+id/section_1"
+                    app:layout_constraintWidth_min="48dp"
+                    app:layout_constraintWidth_percent="0.12" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/section_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/round_corner"
+                android:gravity="center_vertical|start"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/section_1"
+                android:visibility="gone">
+
+
+                <TextView
+                    android:id="@+id/product_2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Produkt"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.6" />
+
+                <Button
+                    android:id="@+id/button_plus_2"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:backgroundTint="@color/dark_gray"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/plus"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_2"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintStart_toEndOf="@+id/product_2"
+                    app:layout_constraintTop_toTopOf="@+id/section_2"
+                    app:layout_constraintWidth_min="48dp"
+                    app:layout_constraintWidth_percent="0.12" />
+
+                <TextView
+                    android:id="@+id/number_2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_2"
+                    app:layout_constraintEnd_toStartOf="@+id/button_minus_2"
+                    app:layout_constraintStart_toEndOf="@+id/button_plus_2"
+                    app:layout_constraintTop_toTopOf="@+id/section_2"
+                    app:layout_constraintWidth_percent="0.12" />
+
+                <Button
+                    android:id="@+id/button_minus_2"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="5dp"
+                    android:backgroundTint="@color/dark_gray"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/minus"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_2"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="@+id/section_2"
+                    app:layout_constraintTop_toTopOf="@+id/section_2"
+                    app:layout_constraintWidth_min="48dp"
+                    app:layout_constraintWidth_percent="0.12" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/section_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/round_corner"
+                android:gravity="center_vertical|start"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/section_2"
+                android:visibility="gone">
+
+
+                <TextView
+                    android:id="@+id/product_3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Produkt"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.6" />
+
+                <Button
+                    android:id="@+id/button_plus_3"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:backgroundTint="@color/dark_gray"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/plus"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_3"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintStart_toEndOf="@+id/product_3"
+                    app:layout_constraintTop_toTopOf="@+id/section_3"
+                    app:layout_constraintWidth_min="48dp"
+                    app:layout_constraintWidth_percent="0.12" />
+
+                <TextView
+                    android:id="@+id/number_3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_3"
+                    app:layout_constraintEnd_toStartOf="@+id/button_minus_3"
+                    app:layout_constraintStart_toEndOf="@+id/button_plus_3"
+                    app:layout_constraintTop_toTopOf="@+id/section_3"
+                    app:layout_constraintWidth_percent="0.12" />
+
+                <Button
+                    android:id="@+id/button_minus_3"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="5dp"
+                    android:backgroundTint="@color/dark_gray"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/minus"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_3"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="@+id/section_3"
+                    app:layout_constraintTop_toTopOf="@+id/section_3"
+                    app:layout_constraintWidth_min="48dp"
+                    app:layout_constraintWidth_percent="0.12" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/section_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="4dp"
+                android:background="@drawable/round_corner"
+                android:gravity="center_vertical|start"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/section_3"
+                android:visibility="gone">
+
+
+                <TextView
+                    android:id="@+id/product_4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:text="Produkt"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.6" />
+
+                <Button
+                    android:id="@+id/button_plus_4"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:backgroundTint="@color/dark_gray"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/plus"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_4"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintStart_toEndOf="@+id/product_4"
+                    app:layout_constraintTop_toTopOf="@+id/section_4"
+                    app:layout_constraintWidth_min="48dp"
+                    app:layout_constraintWidth_percent="0.12" />
+
+                <TextView
+                    android:id="@+id/number_4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_4"
+                    app:layout_constraintEnd_toStartOf="@+id/button_minus_4"
+                    app:layout_constraintStart_toEndOf="@+id/button_plus_4"
+                    app:layout_constraintTop_toTopOf="@+id/section_4"
+                    app:layout_constraintWidth_percent="0.12" />
+
+                <Button
+                    android:id="@+id/button_minus_4"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="5dp"
+                    android:backgroundTint="@color/dark_gray"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/minus"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_4"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="@+id/section_4"
+                    app:layout_constraintTop_toTopOf="@+id/section_4"
+                    app:layout_constraintWidth_min="48dp"
+                    app:layout_constraintWidth_percent="0.12" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/section_5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/round_corner"
+                android:gravity="center_vertical|start"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/section_4"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/product_5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Produkt"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.6" />
+
+                <Button
+                    android:id="@+id/button_plus_5"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:backgroundTint="@color/dark_gray"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/plus"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_5"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintStart_toEndOf="@+id/product_5"
+                    app:layout_constraintTop_toTopOf="@+id/section_5"
+                    app:layout_constraintWidth_min="48dp"
+                    app:layout_constraintWidth_percent="0.12" />
+
+                <TextView
+                    android:id="@+id/number_5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_5"
+                    app:layout_constraintEnd_toStartOf="@+id/button_minus_5"
+                    app:layout_constraintStart_toEndOf="@+id/button_plus_5"
+                    app:layout_constraintTop_toTopOf="@+id/section_5"
+                    app:layout_constraintWidth_percent="0.12" />
+
+                <Button
+                    android:id="@+id/button_minus_5"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="5dp"
+                    android:backgroundTint="@color/dark_gray"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/minus"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_5"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="@+id/section_5"
+                    app:layout_constraintTop_toTopOf="@+id/section_5"
+                    app:layout_constraintWidth_min="48dp"
+                    app:layout_constraintWidth_percent="0.12" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/section_6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/round_corner"
+                android:gravity="center_vertical|start"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/section_5"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/product_6"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Produkt"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.6" />
+
+                <Button
+                    android:id="@+id/button_plus_6"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:backgroundTint="@color/dark_gray"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/plus"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_6"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintStart_toEndOf="@+id/product_6"
+                    app:layout_constraintTop_toTopOf="@+id/section_6"
+                    app:layout_constraintWidth_min="48dp"
+                    app:layout_constraintWidth_percent="0.12" />
+
+                <TextView
+                    android:id="@+id/number_6"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_6"
+                    app:layout_constraintEnd_toStartOf="@+id/button_minus_6"
+                    app:layout_constraintStart_toEndOf="@+id/button_plus_6"
+                    app:layout_constraintTop_toTopOf="@+id/section_6"
+                    app:layout_constraintWidth_percent="0.12" />
+
+                <Button
+                    android:id="@+id/button_minus_6"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="5dp"
+                    android:backgroundTint="@color/dark_gray"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/minus"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_6"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="@+id/section_6"
+                    app:layout_constraintTop_toTopOf="@+id/section_6"
+                    app:layout_constraintWidth_min="48dp"
+                    app:layout_constraintWidth_percent="0.12" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/section_7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/round_corner"
+                android:gravity="center_vertical|start"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/section_6"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/product_7"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Produkt"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.6" />
+
+                <Button
+                    android:id="@+id/button_plus_7"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:backgroundTint="@color/dark_gray"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/plus"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_7"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintStart_toEndOf="@+id/product_7"
+                    app:layout_constraintTop_toTopOf="@+id/section_7"
+                    app:layout_constraintWidth_min="48dp"
+                    app:layout_constraintWidth_percent="0.12" />
+
+                <TextView
+                    android:id="@+id/number_7"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_7"
+                    app:layout_constraintEnd_toStartOf="@+id/button_minus_7"
+                    app:layout_constraintStart_toEndOf="@+id/button_plus_7"
+                    app:layout_constraintTop_toTopOf="@+id/section_7"
+                    app:layout_constraintWidth_percent="0.12" />
+
+                <Button
+                    android:id="@+id/button_minus_7"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="5dp"
+                    android:backgroundTint="@color/dark_gray"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/minus"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_7"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="@+id/section_7"
+                    app:layout_constraintTop_toTopOf="@+id/section_7"
+                    app:layout_constraintWidth_min="48dp"
+                    app:layout_constraintWidth_percent="0.12" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/section_8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/round_corner"
+                android:gravity="center_vertical|start"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/section_7"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/product_8"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Produkt"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.6" />
+
+                <Button
+                    android:id="@+id/button_plus_8"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:backgroundTint="@color/dark_gray"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/plus"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_8"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintStart_toEndOf="@+id/product_8"
+                    app:layout_constraintTop_toTopOf="@+id/section_8"
+                    app:layout_constraintWidth_min="48dp"
+                    app:layout_constraintWidth_percent="0.12" />
+
+                <TextView
+                    android:id="@+id/number_8"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_8"
+                    app:layout_constraintEnd_toStartOf="@+id/button_minus_8"
+                    app:layout_constraintStart_toEndOf="@+id/button_plus_8"
+                    app:layout_constraintTop_toTopOf="@+id/section_8"
+                    app:layout_constraintWidth_percent="0.12" />
+
+                <Button
+                    android:id="@+id/button_minus_8"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="5dp"
+                    android:backgroundTint="@color/dark_gray"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/minus"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_8"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="@+id/section_8"
+                    app:layout_constraintTop_toTopOf="@+id/section_8"
+                    app:layout_constraintWidth_min="48dp"
+                    app:layout_constraintWidth_percent="0.12" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/section_9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/round_corner"
+                android:gravity="center_vertical|start"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/section_8"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/product_9"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Produkt"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.6" />
+
+                <Button
+                    android:id="@+id/button_plus_9"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:backgroundTint="@color/dark_gray"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/plus"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_9"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintStart_toEndOf="@+id/product_9"
+                    app:layout_constraintTop_toTopOf="@+id/section_9"
+                    app:layout_constraintWidth_min="48dp"
+                    app:layout_constraintWidth_percent="0.12" />
+
+                <TextView
+                    android:id="@+id/number_9"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_9"
+                    app:layout_constraintEnd_toStartOf="@+id/button_minus_9"
+                    app:layout_constraintStart_toEndOf="@+id/button_plus_9"
+                    app:layout_constraintTop_toTopOf="@+id/section_9"
+                    app:layout_constraintWidth_percent="0.12" />
+
+                <Button
+                    android:id="@+id/button_minus_9"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="5dp"
+                    android:backgroundTint="@color/dark_gray"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/minus"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_9"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="@+id/section_9"
+                    app:layout_constraintTop_toTopOf="@+id/section_9"
+                    app:layout_constraintWidth_min="48dp"
+                    app:layout_constraintWidth_percent="0.12" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/section_10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/round_corner"
+                android:gravity="center_vertical|start"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/section_9"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/product_10"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Produkt"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.6" />
+
+                <Button
+                    android:id="@+id/button_plus_10"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:backgroundTint="@color/dark_gray"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/plus"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_10"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintStart_toEndOf="@+id/product_10"
+                    app:layout_constraintTop_toTopOf="@+id/section_10"
+                    app:layout_constraintWidth_min="48dp"
+                    app:layout_constraintWidth_percent="0.12" />
+
+                <TextView
+                    android:id="@+id/number_10"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_10"
+                    app:layout_constraintEnd_toStartOf="@+id/button_minus_10"
+                    app:layout_constraintStart_toEndOf="@+id/button_plus_10"
+                    app:layout_constraintTop_toTopOf="@+id/section_10"
+                    app:layout_constraintWidth_percent="0.12" />
+
+                <Button
+                    android:id="@+id/button_minus_10"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="5dp"
+                    android:backgroundTint="@color/dark_gray"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/minus"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_10"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="@+id/section_10"
+                    app:layout_constraintTop_toTopOf="@+id/section_10"
+                    app:layout_constraintWidth_min="48dp"
+                    app:layout_constraintWidth_percent="0.12" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/section_11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/round_corner"
+                android:gravity="center_vertical|start"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/section_10"
+                android:visibility="gone">
+
+
+                <TextView
+                    android:id="@+id/product_11"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Produkt"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.6" />
+
+                <Button
+                    android:id="@+id/button_plus_11"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:backgroundTint="@color/dark_gray"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/plus"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_11"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintStart_toEndOf="@+id/product_11"
+                    app:layout_constraintTop_toTopOf="@+id/section_11"
+                    app:layout_constraintWidth_min="48dp"
+                    app:layout_constraintWidth_percent="0.12" />
+
+                <TextView
+                    android:id="@+id/number_11"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_11"
+                    app:layout_constraintEnd_toStartOf="@+id/button_minus_11"
+                    app:layout_constraintStart_toEndOf="@+id/button_plus_11"
+                    app:layout_constraintTop_toTopOf="@+id/section_11"
+                    app:layout_constraintWidth_percent="0.12" />
+
+                <Button
+                    android:id="@+id/button_minus_11"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="5dp"
+                    android:backgroundTint="@color/dark_gray"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/minus"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_11"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="@+id/section_11"
+                    app:layout_constraintTop_toTopOf="@+id/section_11"
+                    app:layout_constraintWidth_min="48dp"
+                    app:layout_constraintWidth_percent="0.12" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/section_12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/round_corner"
+                android:gravity="center_vertical|start"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/section_11"
+                android:visibility="gone">
+
+
+                <TextView
+                    android:id="@+id/product_12"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Produkt"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.6" />
+
+                <Button
+                    android:id="@+id/button_plus_12"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:backgroundTint="@color/dark_gray"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/plus"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_12"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintStart_toEndOf="@+id/product_12"
+                    app:layout_constraintTop_toTopOf="@+id/section_12"
+                    app:layout_constraintWidth_min="48dp"
+                    app:layout_constraintWidth_percent="0.12" />
+
+                <TextView
+                    android:id="@+id/number_12"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_12"
+                    app:layout_constraintEnd_toStartOf="@+id/button_minus_12"
+                    app:layout_constraintStart_toEndOf="@+id/button_plus_12"
+                    app:layout_constraintTop_toTopOf="@+id/section_12"
+                    app:layout_constraintWidth_percent="0.12" />
+
+                <Button
+                    android:id="@+id/button_minus_12"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="5dp"
+                    android:backgroundTint="@color/dark_gray"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/minus"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_12"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="@+id/section_12"
+                    app:layout_constraintTop_toTopOf="@+id/section_12"
+                    app:layout_constraintWidth_min="48dp"
+                    app:layout_constraintWidth_percent="0.12" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+
+    <ImageView
+        android:id="@+id/storage_Image_button"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/storage_image_white"
+        android:contentDescription="@string/strorage_Image_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toStartOf="@+id/camera_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.14" />
+
+    <ImageView
+        android:id="@+id/camera_button"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/scan_button_image_white"
+        android:contentDescription="@string/camera_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toStartOf="@+id/add_button"
+        app:layout_constraintStart_toEndOf="@+id/storage_Image_button"
+        app:layout_constraintWidth_percent="0.14" />
+
+    <ImageView
+        android:id="@+id/add_button"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/add_button_image"
+        android:contentDescription="@string/add_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/camera_button"
+        app:layout_constraintWidth_percent="0.14" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container_new_product"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:background="@color/gray"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="gone" >
+
+
+        <EditText
+            android:id="@+id/entry_field_product_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/entry_field_Hint"
+            android:textColorHint="@color/black"
+            android:textSize="18sp"
+            android:background="@color/white"
+            android:layout_marginHorizontal="10dp"
+            android:inputType="text"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.55"
+            app:layout_constraintHeight_min="48dp"/>
+
+        <Button
+            android:id="@+id/button_new_product_minus"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:backgroundTint="@color/dark_gray"
             android:insetLeft="0dp"
             android:insetTop="0dp"
             android:insetRight="0dp"
             android:insetBottom="0dp"
-            android:text="@string/app_name"
+            android:text="@string/minus"
             android:textColor="@color/white"
-            android:textSize="30sp"
-            android:textStyle="bold" />
-        <ImageView
-            android:id="@+id/button_update"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="80dp"
-            android:background="@drawable/button_update_image"/>
-    </LinearLayout>
+            android:textSize="18sp"
+            android:layout_marginStart="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toEndOf="@+id/entry_field_product_name"
+            app:layout_constraintEnd_toStartOf="@+id/entry_field_product_number"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.1"
+            app:layout_constraintWidth_min="48dp"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="500sp"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:id="@+id/add_product_Layout"
-            android:layout_width="match_parent"
-            android:layout_height="500sp"
-            android:orientation="vertical"
-            android:visibility="gone">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Neues Produkt"
-                android:textColor="@color/white"
-                android:fontFamily="monospace"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginLeft="10dp"/>
-            <EditText
-                android:id="@+id/new_product_name"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:inputType="text"
-                android:textColor="@color/white"/>
-
-
-        </LinearLayout>
-
-
-        <ScrollView
-            android:layout_width="match_parent"
+        <EditText
+            android:id="@+id/entry_field_product_number"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:fillViewport="true"
-            android:scrollbarDefaultDelayBeforeFade="1000"
-            android:scrollbarSize="6dp">
+            android:text="0"
+            android:inputType="number"
+            android:textAlignment="center"
+            android:textColorHint="@color/black"
+            android:textSize="18sp"
+            android:background="@color/white"
+            android:layout_margin="10dp"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@+id/button_new_product_minus"
+            app:layout_constraintEnd_toStartOf="@+id/button_new_product_plus"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.1"
+            app:layout_constraintWidth_min="48dp"
+            app:layout_constraintHeight_min="48dp"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
+        <Button
+            android:id="@+id/button_new_product_plus"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="10dp"
+            android:backgroundTint="@color/dark_gray"
+            android:insetLeft="0dp"
+            android:insetTop="0dp"
+            android:insetRight="0dp"
+            android:insetBottom="0dp"
+            android:text="@string/plus"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/entry_field_product_number"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_min="48dp"
+            app:layout_constraintWidth_percent="0.1" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <TextView
-                    android:id="@+id/noproduct"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Sie Haben noch keine Produkte einsortiert!"
-                    android:textColor="@color/gray"
-                    android:textSize="30dp"
-                    android:fontFamily="monospace"
-                    android:textStyle="bold"
-                    android:paddingTop="50dp"
-                    android:gravity="center_horizontal" />
-
-                <LinearLayout
-                    android:id="@+id/section_1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="top|center"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/round_corner"
-                    android:gravity="center_horizontal"
-                    android:orientation="horizontal"
-                    android:visibility="gone">
-
-
-                    <TextView
-                        android:id="@+id/product_1"
-                        android:layout_width="125dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="25dp"
-                        android:layout_marginBottom="30dp"
-                        android:insetLeft="0dp"
-                        android:insetTop="0dp"
-                        android:insetRight="0dp"
-                        android:insetBottom="0dp"
-                        android:text="Produkt "
-                        android:textSize="20sp" />
-
-                    <Button
-                        android:id="@+id/button_plus_1"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginEnd="25dp"
-                        android:backgroundTint="@color/dark_gray"
-                        android:insetLeft="0dp"
-                        android:insetTop="0dp"
-                        android:insetRight="0dp"
-                        android:insetBottom="0dp"
-                        android:text="+"
-                        android:textAlignment="center"
-                        android:textColor="@color/white"
-                        android:textSize="30sp" />
-
-                    <TextView
-                        android:id="@+id/number_1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="25dp"
-                        android:insetLeft="0dp"
-                        android:insetTop="0dp"
-                        android:insetRight="0dp"
-                        android:insetBottom="0dp"
-                        android:text="0"
-                        android:textSize="25sp" />
-
-                    <Button
-                        android:id="@+id/button_minus_1"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginEnd="25dp"
-                        android:backgroundTint="@color/dark_gray"
-                        android:insetLeft="0dp"
-                        android:insetTop="0dp"
-                        android:insetRight="0dp"
-                        android:insetBottom="0dp"
-                        android:text="-"
-                        android:textColor="@color/white"
-                        android:textSize="30sp" />
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/section_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="top|center"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/round_corner"
-                    android:gravity="center_horizontal"
-                    android:orientation="horizontal"
-                    android:visibility="gone">
-
-
-                    <TextView
-                        android:id="@+id/product_2"
-                        android:layout_width="125dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="25dp"
-                        android:layout_marginBottom="30dp"
-                        android:insetLeft="0dp"
-                        android:insetTop="0dp"
-                        android:insetRight="0dp"
-                        android:insetBottom="0dp"
-                        android:text="Produkt "
-                        android:textSize="20sp" />
-
-                    <Button
-                        android:id="@+id/button_plus_2"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginEnd="25dp"
-                        android:backgroundTint="@color/dark_gray"
-                        android:insetLeft="0dp"
-                        android:insetTop="0dp"
-                        android:insetRight="0dp"
-                        android:insetBottom="0dp"
-                        android:text="+"
-                        android:textAlignment="center"
-                        android:textColor="@color/white"
-                        android:textSize="30sp" />
-
-                    <TextView
-                        android:id="@+id/number_2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="25dp"
-                        android:insetLeft="0dp"
-                        android:insetTop="0dp"
-                        android:insetRight="0dp"
-                        android:insetBottom="0dp"
-                        android:text="0"
-                        android:textSize="25sp" />
-
-                    <Button
-                        android:id="@+id/button_minus_2"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginEnd="25dp"
-                        android:backgroundTint="@color/dark_gray"
-                        android:insetLeft="0dp"
-                        android:insetTop="0dp"
-                        android:insetRight="0dp"
-                        android:insetBottom="0dp"
-                        android:text="-"
-                        android:textColor="@color/white"
-                        android:textSize="30sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/section_3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="top|center"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/round_corner"
-                    android:gravity="center_horizontal"
-                    android:orientation="horizontal"
-                    android:visibility="gone">
-
-
-                    <TextView
-                        android:id="@+id/product_3"
-                        android:layout_width="125dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="25dp"
-                        android:layout_marginBottom="30dp"
-                        android:insetLeft="0dp"
-                        android:insetTop="0dp"
-                        android:insetRight="0dp"
-                        android:insetBottom="0dp"
-                        android:text="Produkt "
-                        android:textSize="20sp" />
-
-                    <Button
-                        android:id="@+id/button_plus_3"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginEnd="25dp"
-                        android:backgroundTint="@color/dark_gray"
-                        android:insetLeft="0dp"
-                        android:insetTop="0dp"
-                        android:insetRight="0dp"
-                        android:insetBottom="0dp"
-                        android:text="+"
-                        android:textAlignment="center"
-                        android:textColor="@color/white"
-                        android:textSize="30sp" />
-
-                    <TextView
-                        android:id="@+id/number_3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="25dp"
-                        android:insetLeft="0dp"
-                        android:insetTop="0dp"
-                        android:insetRight="0dp"
-                        android:insetBottom="0dp"
-                        android:text="0"
-                        android:textSize="25sp" />
-
-                    <Button
-                        android:id="@+id/button_minus_3"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginEnd="25dp"
-                        android:backgroundTint="@color/dark_gray"
-                        android:insetLeft="0dp"
-                        android:insetTop="0dp"
-                        android:insetRight="0dp"
-                        android:insetBottom="0dp"
-                        android:text="-"
-                        android:textColor="@color/white"
-                        android:textSize="30sp" />
-                </LinearLayout>
-
-
-
-            </LinearLayout>
-        </ScrollView>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/navigation"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container_buttons_new_product"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center|bottom"
+        android:layout_height="150dp"
+        android:layout_gravity="center_horizontal"
         android:orientation="horizontal"
-        android:paddingBottom="15dp"
-        android:visibility="visible">
+        android:background="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone" >
 
         <ImageView
-            android:id="@+id/camera_button"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginRight="25dp"
-            android:background="@drawable/scan_button_image_white"
-            android:textAllCaps="false" />
+            android:id="@+id/cancel_button"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/cancel_button"
+            android:backgroundTint="@color/white"
+            android:contentDescription="@string/cancel_button"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@+id/apply_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent="0.14" />
 
         <ImageView
-            android:id="@+id/storage_Image_button"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/storage_image_white"
-            android:textAllCaps="false" />
-        <ImageView
-            android:id="@+id/add_button"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="25dp"
-            android:background="@drawable/add_button_image"/>
+            android:id="@+id/apply_button"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/apply_button"
+            android:backgroundTint="@color/white"
+            android:contentDescription="@string/apply_button"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cancel_button"
+            app:layout_constraintWidth_percent="0.14" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
 
-</LinearLayout>
+    <!--
+Zu den Strings
+<string name="plus">+</string>
+<string name="minus">-</string>
+<string name="strorage_Image_button">Inventarübersicht</string>
+<string name="camera_button">Kamera</string>
+<string name="add_button">Produkt hinzufügen</string>
+<string name="no_product_string">Sie Haben noch keine Produkte einsortiert!</string>
+<string name="entry_field_Hint">Name des neuen Produkts</string>
+<string name="cancel_button">Abbrechen</string>
+<string name="apply_button">Anwenden</string>
+
+!!!sections in Java als ConstraintLayout importieren!!!
