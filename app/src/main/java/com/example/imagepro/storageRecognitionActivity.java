@@ -49,6 +49,7 @@ public class storageRecognitionActivity extends AppCompatActivity {
     private String filteroutput;
     List<List<String>> topLevelList = new ArrayList<>();
     Bitmap bitmap=null;
+    MainActivity mainac = new MainActivity();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -544,5 +545,6 @@ public class storageRecognitionActivity extends AppCompatActivity {
                 Log.d("BonFilter", "Anzahl hinzugefügt:" + topLevelList);
             }
         }
+        mainac.adddata(topLevelList);
     }
 }
