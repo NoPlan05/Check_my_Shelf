@@ -163,11 +163,6 @@
                         android:text="-"
                         android:textColor="@color/white"
                         android:textSize="30sp" />
-                    <ImageView
-                        android:id="@+id/button_delete_1"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:background="@drawable/delete_button_image"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/section_2"
@@ -235,11 +230,6 @@
                         android:text="-"
                         android:textColor="@color/white"
                         android:textSize="30sp" />
-                    <ImageView
-                        android:id="@+id/button_delete_2"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:background="@drawable/delete_button_image"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -308,11 +298,6 @@
                         android:text="-"
                         android:textColor="@color/white"
                         android:textSize="30sp" />
-                    <ImageView
-                        android:id="@+id/button_delete_3"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:background="@drawable/delete_button_image"/>
                 </LinearLayout>
 
 

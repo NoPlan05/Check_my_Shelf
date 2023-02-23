@@ -1,9 +1,13 @@
 package com.example.imagepro;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -35,7 +39,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     static {
@@ -64,6 +70,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        readlagerbestand();
+        sortlagerbestand();
+        writeCsv();
+        ColorStateList colorStateList = getResources().getColorStateList(R.color.dark_gray);
+        button_minus_1 = findViewById(R.id.button_minus_1);
+        Drawable defaultBackground = button_minus_1.getBackground();
+
+
         // to go into camera
         camera_button = findViewById(R.id.camera_button);
         camera_button.setOnClickListener(new View.OnClickListener() {
@@ -89,24 +103,29 @@ public class MainActivity extends AppCompatActivity {
                 // Convert value to a number and increment it
                 Integer count = Integer.parseInt(countString);
                 count++;
-                for(int plusonecounter = 0; plusonecounter < wholeList.size(); plusonecounter++){
-                    if (wholeList.get(plusonecounter).get(1).equals(countString)) {
-                        wholeList.get(plusonecounter).set(1, count);
-                        writeCsv(MainActivity.this);
-                        readlagerbestand();
-                        sortlagerbestand();
+
+                Log.d("test", "langer text um aufzufallen test "+product_1.getText().toString());
+                for (int plus1counter = 0; plus1counter < wholeList.size(); plus1counter++) {
+                    if (wholeList.get(plus1counter).get(0).equals(product_1.getText().toString())) {
+                        wholeList.get(plus1counter).set(1, count);
                         //Log.d("Klick", " erfolkreich geaendert?");
                         break;
                     }
                 }
+
+
                 // Display the new value in the text view.
                 number_1.setText(String.valueOf(count));
                 //save the cange
-                //wholeList.get(0).set(1, count);
-                writeCsv(MainActivity.this);
+                writeCsv();
+                if (count == 1){
+                    button_minus_1.setBackground(defaultBackground);
+                    button_minus_1.setBackgroundTintList(colorStateList);
+                    button_minus_1.setText("-");
+                }
             }
         });
-        button_minus_1 = findViewById(R.id.button_minus_1);
+
         number_1 = findViewById(R.id.number_1);
         button_minus_1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,12 +135,9 @@ public class MainActivity extends AppCompatActivity {
                 int count = Integer.parseInt(countString);
                 if (count > 0) {
                     count--;
-                    for(int minusonecounter = 0; minusonecounter < wholeList.size(); minusonecounter++){
-                        if (wholeList.get(minusonecounter).get(1).equals(countString)) {
-                            wholeList.get(minusonecounter).set(1, count);
-                            writeCsv(MainActivity.this);
-                            readlagerbestand();
-                            sortlagerbestand();
+                    for (int minus1counter = 0; minus1counter < wholeList.size(); minus1counter++) {
+                        if (wholeList.get(minus1counter).get(0).equals(product_1.getText().toString())) {
+                            wholeList.get(minus1counter).set(1, count);
                             //Log.d("Klick", " erfolkreich geaendert?");
                             break;
                         }
@@ -130,12 +146,34 @@ public class MainActivity extends AppCompatActivity {
                     number_1.setText(String.valueOf(count));
                     //save the cange
                     //wholeList.get(0).set(1, count);
-                    writeCsv(MainActivity.this);
+                    writeCsv();
+                    if (count == 0){
+                        button_minus_1.setBackgroundResource(R.drawable.delete_button_image);
+                        button_minus_1.setBackgroundTintList(colorStateList);
+                        button_minus_1.setText("");
+                    }
 
-                    } else {
-                        Toast.makeText(MainActivity.this, "Sie haben keine Produkte mehr, möchten sie sie vielleicht auf ihre Einkaufliste setzen?", Toast.LENGTH_LONG).show();
+                } else {
+                    //Toast.makeText(MainActivity.this, "Sie haben keine Produkte mehr, möchten sie sie vielleicht auf ihre Einkaufliste setzen?", Toast.LENGTH_LONG).show();
+                    //Log.d("Klick", "Button erfolkreich geklickt");
+                    for (int counter1 = 0; counter1 < wholeList.size(); counter1++) {
+                        //Log.d("Klick", "For schleife ausgefürt");
+                        if (wholeList.get(counter1).get(0).equals(product_1.getText())) {
+                            wholeList.get(counter1).set(0, "Produkt");
+                            wholeList.get(counter1).set(1, 0);
+                            section_1.setVisibility(View.GONE);
+                            writeCsv();
+                            readlagerbestand();
+                            sortlagerbestand();
+                            //Log.d("Klick", " erfolkreich geaendert?");
+                            button_minus_1.setBackground(defaultBackground);
+                            button_minus_1.setBackgroundTintList(colorStateList);
+                            button_minus_1.setText("-");
+                            break;
+                        }
                     }
                 }
+            }
 
         });
         button_plus_2 = findViewById(R.id.button_plus_2);
@@ -147,21 +185,26 @@ public class MainActivity extends AppCompatActivity {
                 // Convert value to a number and increment it
                 Integer count = Integer.parseInt(countString);
                 count++;
-                for(int plustwocounter = 0; plustwocounter < wholeList.size(); plustwocounter++){
-                    if (wholeList.get(plustwocounter).get(1).equals(countString)) {
-                        wholeList.get(plustwocounter).set(1, count);
-                        writeCsv(MainActivity.this);
-                        readlagerbestand();
-                        sortlagerbestand();
+
+                Log.d("test", "langer text um aufzufallen test "+product_2.getText().toString());
+                for (int plus2counter = 0; plus2counter < wholeList.size(); plus2counter++) {
+                    if (wholeList.get(plus2counter).get(0).equals(product_2.getText().toString())) {
+                        wholeList.get(plus2counter).set(1, count);
                         //Log.d("Klick", " erfolkreich geaendert?");
                         break;
                     }
                 }
+
+
                 // Display the new value in the text view.
                 number_2.setText(String.valueOf(count));
                 //save the cange
-                //wholeList.get(1).set(1, count);
-                writeCsv(MainActivity.this);
+                writeCsv();
+                if (count == 1){
+                    button_minus_2.setBackground(defaultBackground);
+                    button_minus_2.setBackgroundTintList(colorStateList);
+                    button_minus_2.setText("-");
+                }
             }
         });
         button_minus_2 = findViewById(R.id.button_minus_2);
@@ -174,12 +217,9 @@ public class MainActivity extends AppCompatActivity {
                 int count = Integer.parseInt(countString);
                 if (count > 0) {
                     count--;
-                    for(int minustwocounter = 0; minustwocounter < wholeList.size(); minustwocounter++){
-                        if (wholeList.get(minustwocounter).get(1).equals(countString)) {
-                            wholeList.get(minustwocounter).set(1, count);
-                            writeCsv(MainActivity.this);
-                            readlagerbestand();
-                            sortlagerbestand();
+                    for (int minus2counter = 0; minus2counter < wholeList.size(); minus2counter++) {
+                        if (wholeList.get(minus2counter).get(0).equals(product_2.getText().toString())) {
+                            wholeList.get(minus2counter).set(1, count);
                             //Log.d("Klick", " erfolkreich geaendert?");
                             break;
                         }
@@ -187,11 +227,33 @@ public class MainActivity extends AppCompatActivity {
                     // Display the new value in the text view.
                     number_2.setText(String.valueOf(count));
                     //save the cange
-                    //wholeList.get(1).set(1, count);
-                    writeCsv(MainActivity.this);
+                    //wholeList.get(0).set(1, count);
+                    writeCsv();
+                    if (count == 0){
+                        button_minus_2.setBackgroundResource(R.drawable.delete_button_image);
+                        button_minus_2.setBackgroundTintList(colorStateList);
+                        button_minus_2.setText("");
+                    }
 
                 } else {
-                    Toast.makeText(MainActivity.this, "Sie haben keine Produkte mehr, möchten sie sie vielleicht auf ihre Einkaufliste setzen?", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(MainActivity.this, "Sie haben keine Produkte mehr, möchten sie sie vielleicht auf ihre Einkaufliste setzen?", Toast.LENGTH_LONG).show();
+                    //Log.d("Klick", "Button erfolkreich geklickt");
+                    for (int counter2 = 0; counter2 < wholeList.size(); counter2++) {
+                        //Log.d("Klick", "For schleife ausgefürt");
+                        if (wholeList.get(counter2).get(0).equals(product_2.getText())) {
+                            wholeList.get(counter2).set(0, "Produkt");
+                            wholeList.get(counter2).set(1, 0);
+                            section_2.setVisibility(View.GONE);
+                            writeCsv();
+                            readlagerbestand();
+                            sortlagerbestand();
+                            //Log.d("Klick", " erfolkreich geaendert?");
+                            button_minus_2.setBackground(defaultBackground);
+                            button_minus_2.setBackgroundTintList(colorStateList);
+                            button_minus_2.setText("-");
+                            break;
+                        }
+                    }
                 }
             }
 
@@ -205,22 +267,26 @@ public class MainActivity extends AppCompatActivity {
                 // Convert value to a number and increment it
                 Integer count = Integer.parseInt(countString);
                 count++;
-                for(int plusthreecounter = 0; plusthreecounter < wholeList.size(); plusthreecounter++){
-                    Log.d("Klick", " for schleife gestartet");
-                    if (wholeList.get(plusthreecounter).get(1).equals(countString)) {
-                        wholeList.get(plusthreecounter).set(1, count);
-                        writeCsv(MainActivity.this);
-                        readlagerbestand();
-                        sortlagerbestand();
-                        Log.d("Klick", " erfolkreich geaendert?");
+
+                Log.d("test", "langer text um aufzufallen test "+product_3.getText().toString());
+                for (int plus3counter = 0; plus3counter < wholeList.size(); plus3counter++) {
+                    if (wholeList.get(plus3counter).get(0).equals(product_3.getText().toString())) {
+                        wholeList.get(plus3counter).set(1, count);
+                        //Log.d("Klick", " erfolkreich geaendert?");
                         break;
                     }
                 }
+
+
                 // Display the new value in the text view.
                 number_3.setText(String.valueOf(count));
                 //save the cange
-                //wholeList.get(2).set(1, count);
-                writeCsv(MainActivity.this);
+                writeCsv();
+                if (count == 1){
+                    button_minus_3.setBackground(defaultBackground);
+                    button_minus_3.setBackgroundTintList(colorStateList);
+                    button_minus_3.setText("-");
+                }
             }
         });
         button_minus_3 = findViewById(R.id.button_minus_3);
@@ -233,111 +299,74 @@ public class MainActivity extends AppCompatActivity {
                 int count = Integer.parseInt(countString);
                 if (count > 0) {
                     count--;
-                    for(int minusthreecounter = 0; minusthreecounter < wholeList.size(); minusthreecounter++){
-                        Log.d("Klick", " for schleife gestartet");
-                        if (wholeList.get(minusthreecounter).get(1).equals(count)) {
-                            wholeList.get(minusthreecounter).set(1, count);
-                            readlagerbestand();
-                            sortlagerbestand();
-                            writeCsv(MainActivity.this);
-                            Log.d("Klick", " erfolkreich geaendert?");
+                    for (int minus3counter = 0; minus3counter < wholeList.size(); minus3counter++) {
+                        if (wholeList.get(minus3counter).get(0).equals(product_3.getText().toString())) {
+                            wholeList.get(minus3counter).set(1, count);
+                            //Log.d("Klick", " erfolkreich geaendert?");
                             break;
                         }
                     }
                     // Display the new value in the text view.
                     number_3.setText(String.valueOf(count));
                     //save the cange
-                    //wholeList.get(2).set(1, count);
-                    writeCsv(MainActivity.this);
+                    //wholeList.get(0).set(1, count);
+                    writeCsv();
+                    if (count == 0){
+                        button_minus_3.setBackgroundResource(R.drawable.delete_button_image);
+                        button_minus_3.setBackgroundTintList(colorStateList);
+                        button_minus_3.setText("");
+                    }
 
                 } else {
-                    Toast.makeText(MainActivity.this, "Sie haben keine Produkte mehr, möchten sie sie vielleicht auf ihre Einkaufliste setzen?", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(MainActivity.this, "Sie haben keine Produkte mehr, möchten sie sie vielleicht auf ihre Einkaufliste setzen?", Toast.LENGTH_LONG).show();
+                    //Log.d("Klick", "Button erfolkreich geklickt");
+                    for (int counter3 = 0; counter3 < wholeList.size(); counter3++) {
+                        //Log.d("Klick", "For schleife ausgefürt");
+                        if (wholeList.get(counter3).get(0).equals(product_3.getText())) {
+                            wholeList.get(counter3).set(0, "Produkt");
+                            wholeList.get(counter3).set(1, 0);
+                            section_3.setVisibility(View.GONE);
+                            writeCsv();
+                            readlagerbestand();
+                            sortlagerbestand();
+                            //Log.d("Klick", " erfolkreich geaendert?");
+                            button_minus_3.setBackground(defaultBackground);
+                            button_minus_3.setBackgroundTintList(colorStateList);
+                            button_minus_3.setText("-");
+                            break;
+                        }
+                    }
                 }
             }
 
         });
-        button_delete_1 = findViewById(R.id.button_delete_1);
-        button_delete_1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Log.d("Klick", "Button erfolkreich geklickt");
-                for(int onecounter = 0; onecounter < wholeList.size(); onecounter++){
-                    //Log.d("Klick", "For schleife ausgefürt");
-                    if (wholeList.get(onecounter).get(0).equals(product_1.getText())){
-                        wholeList.get(onecounter).set(0, "Produkt");
-                        wholeList.get(onecounter).set(1, 0);
-                        section_1.setVisibility(View.GONE);
-                        writeCsv(MainActivity.this);
-                        readlagerbestand();
-                        sortlagerbestand();
-                        //Log.d("Klick", " erfolkreich geaendert?");
-                        break;
-                    }
-                }
 
-                }
-        });
-        button_delete_2 = findViewById(R.id.button_delete_2);
-        button_delete_2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                for(int twocounter = 0; twocounter < wholeList.size(); twocounter++){
-                    if (wholeList.get(twocounter).get(0).equals(product_2.getText())){
-                        wholeList.get(twocounter).set(0, "Produkt");
-                        wholeList.get(twocounter).set(1, 0);
-                        section_2.setVisibility(View.GONE);
-                        writeCsv(MainActivity.this);
-                        readlagerbestand();
-                        sortlagerbestand();
-                        break;
-                    }
-                }
-
-            }
-        });
-        button_delete_3 = findViewById(R.id.button_delete_3);
-        button_delete_3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                for(int threecounter = 0; threecounter < wholeList.size(); threecounter++){
-                    if (wholeList.get(threecounter).get(0).equals(product_3.getText())){
-                        wholeList.get(threecounter).set(0, "Produkt");
-                        wholeList.get(threecounter).set(1, 0);
-                        section_3.setVisibility(View.GONE);
-                        writeCsv(MainActivity.this);
-                        readlagerbestand();
-                        sortlagerbestand();
-                        break;
-                    }
-                }
-
-            }
-        });
         button_update = findViewById(R.id.button_update);
         button_update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                writeCsv(MainActivity.this);
                 readlagerbestand();
                 sortlagerbestand();
             }
         });
 
-        readlagerbestand();
-        sortlagerbestand();
-        writeCsv(this);
     }
 
     private List<List> wholeList = new ArrayList<>();
-
 
 
     private void readlagerbestand() {
         InputStream is = null;
 
         try {
-            Context context = this;
-            File dir = context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
+            File dir = new File(Environment.getExternalStorageDirectory(), "Documents");
+            if (!dir.exists()) {
+                if (!dir.mkdirs()) {
+                    Log.e("writeCsv", "Failed to create directory");
+                    return;
+                }
+            }
+            Log.d("Witert test", "context ist" + this);
             File file = new File(dir, "data.csv");
             is = new FileInputStream(file);
         } catch (FileNotFoundException e) {
@@ -351,6 +380,7 @@ public class MainActivity extends AppCompatActivity {
             // Step over header
             reader.readLine();
 
+            wholeList.clear();
             while ((line = reader.readLine()) != null) {
                 // Split by ","
                 String[] tokens = line.split(",");
@@ -405,8 +435,6 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout section_8;
     private LinearLayout section_9;
     private LinearLayout section_10;
-
-
 
 
     private void sortlagerbestand() {
@@ -471,38 +499,87 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-
     }
-        private void writeCsv(Context context) {
-            // Get the directory where the file will be saved
-            File dir = context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
 
-            // Create the CSV file
-            File file = new File(dir, "data.csv");
+    public void adddata(List<List<String>> topLevelList) {
+        readlagerbestand();
+        Map<String, Integer> dataMap = new HashMap<>();
 
-            try {
-                // Open a file output stream
-                FileOutputStream fos = new FileOutputStream(file);
+        // Fill the dataMap with values from wholeList
+        for (List<Object> item : wholeList) {
+            String key = item.get(0).toString();
+            int value = Integer.parseInt(item.get(1).toString());
+            dataMap.put(key, value);
+        }
 
-                // Create an output writer
-                OutputStreamWriter writer = new OutputStreamWriter(fos);
+        // Update the dataMap with values from topLevelList
+        for (List<String> item : topLevelList) {
+            String key = item.get(0);
+            int value = Integer.parseInt(item.get(1));
 
-                // Write some data to the file
-                writer.write("Produkt,Anzahl\n");
-                for (int counter = 0; counter < wholeList.size(); counter++) {
-                    writer.write("" + wholeList.get(counter).get(0) + "," + wholeList.get(counter).get(1) + "\n");
-                }
-                Log.d("csvWriting", "test");
-
-                // Close the writer and output stream
-                writer.close();
-                fos.close();
-            } catch (IOException e) {
-                // Handle the exception
-                e.printStackTrace();
+            if (dataMap.containsKey(key)) {
+                int oldValue = dataMap.get(key);
+                dataMap.put(key, oldValue + value);
+            } else {
+                dataMap.put(key, value);
             }
         }
 
+        // Update wholeList with values from dataMap
+        for (int counttwo = 0;counttwo < dataMap.size();counttwo++){
+            wholeList.remove(counttwo);
+        }
+
+        for (Map.Entry<String, Integer> entry : dataMap.entrySet()) {
+            String key = entry.getKey();
+            int value = entry.getValue();
+            List<Object> item = new ArrayList<>();
+            item.add(key);
+            item.add(value);
+            wholeList.add(item);
+        }
+        Log.d("whole List new", "List:" + wholeList);
+        // Write the updated data to CSV file
+        Log.d("This context:", "Again this context:" + this);
+        writeCsv();
+
+    }
+
+    public void writeCsv() {
+        File dir = new File(Environment.getExternalStorageDirectory(), "Documents");
+        if (!dir.exists()) {
+            if (!dir.mkdirs()) {
+                Log.e("writeCsv", "Failed to create directory");
+                return;
+            }
+        }
+        // Create the CSV file
+        File file = new File(dir, "data.csv");
+
+        try {
+            // Open a file output stream
+            FileOutputStream fos = new FileOutputStream(file);
+
+            // Create an output writer
+            OutputStreamWriter writer = new OutputStreamWriter(fos);
+
+            // Write some data to the file
+            writer.write("Produkt,Anzahl\n");
+            for (int counter = 0; counter < wholeList.size(); counter++) {
+                writer.write("" + wholeList.get(counter).get(0) + "," + wholeList.get(counter).get(1) + "\n");
+            }
+            Log.d("csvWriting", "test");
+
+            // Close the writer and output stream
+            writer.close();
+            fos.close();
+        } catch (IOException e) {
+            // Handle the exception
+            e.printStackTrace();
+        }
+        readlagerbestand();
+        sortlagerbestand();
+    }
 }
 
 
