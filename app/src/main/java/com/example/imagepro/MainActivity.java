@@ -166,7 +166,9 @@ public class MainActivity extends AppCompatActivity {
                 notTopLevelList.add(entry_field_product_name.getText().toString());
                 notTopLevelList.add(entry_field_product_number.getText().toString());
                 topLevelList.add(notTopLevelList);
+                Log.d("test topLevelList", "topLevelList="+ topLevelList);
                 adddata(topLevelList);
+                topLevelList.clear();
             }
         });
 
@@ -1232,9 +1234,7 @@ public class MainActivity extends AppCompatActivity {
 
         for (int counter = 0; counter < wholeList.size(); counter++) {
             String productName = wholeList.get(counter).get(0).toString();
-            //productName = productName.substring(1, productName.length() - 1);
             String productquantity = wholeList.get(counter).get(1).toString();
-            //productquantity = productquantity.substring(1, productquantity.length() - 1);
 
 
             if (!productName.equals("Produkt")) {
@@ -1323,6 +1323,9 @@ public class MainActivity extends AppCompatActivity {
             int value = Integer.parseInt(item.get(1).toString());
             dataMap.put(key, value);
         }
+        dataMap.clear();
+        Log.d("map Data:", "dataMap befor topLevelLsit addet:" + dataMap);
+
 
         // Update the dataMap with values from topLevelList
         for (List<String> item : topLevelList) {
@@ -1336,6 +1339,7 @@ public class MainActivity extends AppCompatActivity {
                 dataMap.put(key, value);
             }
         }
+        Log.d("map Data:", "dataMap after topLevelLsit addet:" + dataMap);
 
         // Update wholeList with values from dataMap
         for (int counttwo = 0;counttwo < dataMap.size();counttwo++){
@@ -1350,6 +1354,7 @@ public class MainActivity extends AppCompatActivity {
             item.add(value);
             wholeList.add(item);
         }
+        Log.d("dataMap", "gesamte Data map=" + dataMap);
         Log.d("whole List new", "List:" + wholeList);
         // Write the updated data to CSV file
         Log.d("This context:", "Again this context:" + this);
@@ -1397,7 +1402,7 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         EditText editText = findViewById(R.id.entry_field_product_number);
         EditText editText1 = findViewById(R.id.entry_field_product_name);
-        editText.setText("");
+        editText.setText("0");
         editText1.setText("");
     }
 }
