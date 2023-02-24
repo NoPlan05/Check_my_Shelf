@@ -88,6 +88,12 @@ public class MainActivity extends AppCompatActivity {
     private EditText entry_field_product_number;
     private ImageView button_update;
     private ImageView add_button;
+    private ImageView stopp_button;
+    private ConstraintLayout container_buttons_edit_product;
+    private ImageView change_button;
+    private Button button_new_product_minus;
+    private Button button_new_product_plus;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -175,6 +181,35 @@ public class MainActivity extends AppCompatActivity {
                 topLevelList.clear();
             }
         });
+        button_new_product_minus = findViewById(R.id.button_new_product_minus);
+        button_new_product_plus = findViewById(R.id.button_new_product_plus);
+        button_new_product_minus = findViewById(R.id.button_new_product_minus);
+        button_new_product_plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String countString = entry_field_product_number.getText().toString();
+                // Convert value to a number and increment it
+                Integer count = Integer.parseInt(countString);
+                count++;
+                // Display the new value in the text view.
+                entry_field_product_number.setText(String.valueOf(count));
+            }
+        });
+        button_new_product_minus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String countString = entry_field_product_number.getText().toString();
+                // Convert value to a number and increment it
+                Integer count = Integer.parseInt(countString);
+                if (count >= 1){
+                    count--;
+                }
+
+                // Display the new value in the text view.
+                entry_field_product_number.setText(String.valueOf(count));
+            }
+        });
+
 
 
 
@@ -259,6 +294,86 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
+        });
+        product_1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                change_button = findViewById(R.id.change_button);
+                stopp_button = findViewById(R.id.stopp_button);
+                container_new_product = findViewById(R.id.container_new_product);
+                container_buttons_edit_product = findViewById(R.id.container_buttons_edit_product);
+                entry_field_product_name = findViewById(R.id.entry_field_product_name);
+
+                        container_new_product.setVisibility(View.VISIBLE);
+                        container_buttons_edit_product.setVisibility(View.VISIBLE);
+                        storage_Image_button.setVisibility(View.GONE);
+                        camera_button.setVisibility(View.GONE);
+                        add_button.setVisibility(View.GONE);
+                        entry_field_product_name.requestFocus();
+                        InputMethodManager imm = (InputMethodManager)
+                                getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.showSoftInput(entry_field_product_name, InputMethodManager.SHOW_IMPLICIT);
+
+                entry_field_product_name = findViewById(R.id.entry_field_product_name);
+                entry_field_product_number = findViewById(R.id.entry_field_product_number);
+            }
+        });
+        change_button = findViewById(R.id.change_button);
+        change_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("test enty fiel", "entry fielt:" + entry_field_product_name.getText().toString());
+                for (int plus2counter = 0; plus2counter < wholeList.size(); plus2counter++) {
+                    if (wholeList.get(plus2counter).get(0).equals(product_1.getText().toString())) {
+                        wholeList.get(plus2counter).set(0,entry_field_product_name.getText().toString());
+                        Log.d("test enty fiel", "entry fielt:" + entry_field_product_name.getText().toString());
+                        wholeList.get(plus2counter).set(1, entry_field_product_number.getText().toString());
+                        writeCsv();
+                        readlagerbestand();
+                        sortlagerbestand();
+                        break;
+                    }
+                }
+            }
+        });
+        stopp_button = findViewById(R.id.stopp_button);
+        stopp_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                container_new_product.setVisibility(View.GONE);
+                container_buttons_edit_product.setVisibility(View.GONE);
+                storage_Image_button.setVisibility(View.VISIBLE);
+                camera_button.setVisibility(View.VISIBLE);
+                change_button.setVisibility(View.VISIBLE);
+            }
+        });
+        button_new_product_minus = findViewById(R.id.button_new_product_minus);
+        button_new_product_plus = findViewById(R.id.button_new_product_plus);
+        button_new_product_minus = findViewById(R.id.button_new_product_minus);
+        button_new_product_plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String countString = entry_field_product_number.getText().toString();
+                // Convert value to a number and increment it
+                Integer count = Integer.parseInt(countString);
+                count++;
+                // Display the new value in the text view.
+                entry_field_product_number.setText(String.valueOf(count));
+            }
+        });
+        button_new_product_minus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String countString = entry_field_product_number.getText().toString();
+                // Convert value to a number and increment it
+                Integer count = Integer.parseInt(countString);
+                if (count >= 1){
+                    count--;
+                }
+
+                // Display the new value in the text view.
+                entry_field_product_number.setText(String.valueOf(count));
+            }
         });
         button_plus_2 = findViewById(R.id.button_plus_2);
         number_2 = findViewById(R.id.number_2);
