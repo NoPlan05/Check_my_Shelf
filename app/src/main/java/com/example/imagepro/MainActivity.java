@@ -1225,6 +1225,7 @@ public class MainActivity extends AppCompatActivity {
         button_update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //onCreate(savedInstanceState);
                 readlagerbestand();
                 sortlagerbestand();
             }
@@ -1588,7 +1589,3 @@ public class MainActivity extends AppCompatActivity {
     }
 
 }
-
-
-
-
