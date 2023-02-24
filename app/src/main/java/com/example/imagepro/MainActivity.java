@@ -1586,6 +1586,7 @@ public class MainActivity extends AppCompatActivity {
         editText.setText("0");
         editText1.setText("");
     }
+
 }
 
 
