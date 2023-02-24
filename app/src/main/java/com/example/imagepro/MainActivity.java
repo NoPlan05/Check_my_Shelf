@@ -158,7 +158,6 @@ public class MainActivity extends AppCompatActivity {
                 storage_Image_button.setVisibility(View.VISIBLE);
                 camera_button.setVisibility(View.VISIBLE);
                 add_button.setVisibility(View.VISIBLE);
-
             }
 
         });
@@ -169,16 +168,29 @@ public class MainActivity extends AppCompatActivity {
         apply_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("test", "langer text um aufzufallen test "+product_1.getText().toString());
                 List<List<String>> topLevelList = new ArrayList<>(Arrays.asList());
                 List<String> notTopLevelList = new ArrayList<>();
                 topLevelList.clear();
                 notTopLevelList.clear();
-                notTopLevelList.add(entry_field_product_name.getText().toString());
-                notTopLevelList.add(entry_field_product_number.getText().toString());
-                topLevelList.add(notTopLevelList);
-                Log.d("test topLevelList", "topLevelList="+ topLevelList);
-                adddata(topLevelList);
-                topLevelList.clear();
+                for (int plus1counter = 0; plus1counter < wholeList.size(); plus1counter++) {
+                    if (wholeList.get(plus1counter).get(0).equals(product_1.getText().toString())) {
+                        notTopLevelList.add(entry_field_product_name.getText().toString());
+                        notTopLevelList.add(entry_field_product_number.getText().toString());
+                        topLevelList.add(notTopLevelList);
+                        Log.d("test topLevelList", "topLevelList="+ topLevelList);
+                        adddata(topLevelList);
+                        topLevelList.clear();
+                        break;
+                    }
+                }
+                container_new_product.setVisibility(View.GONE);
+                container_buttons_new_product.setVisibility(View.GONE);
+                storage_Image_button.setVisibility(View.VISIBLE);
+                camera_button.setVisibility(View.VISIBLE);
+                add_button.setVisibility(View.VISIBLE);
+
+
             }
         });
         button_new_product_minus = findViewById(R.id.button_new_product_minus);
@@ -209,10 +221,6 @@ public class MainActivity extends AppCompatActivity {
                 entry_field_product_number.setText(String.valueOf(count));
             }
         });
-
-
-
-
         button_plus_1 = findViewById(R.id.button_plus_1);
         number_1 = findViewById(R.id.number_1);
         button_plus_1.setOnClickListener(new View.OnClickListener() {
@@ -322,18 +330,37 @@ public class MainActivity extends AppCompatActivity {
         change_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                List<List<String>> topLevelList = new ArrayList<>(Arrays.asList());
+                List<String> notTopLevelList = new ArrayList<>();
+                topLevelList.clear();
                 Log.d("test enty fiel", "entry fielt:" + entry_field_product_name.getText().toString());
                 for (int plus2counter = 0; plus2counter < wholeList.size(); plus2counter++) {
                     if (wholeList.get(plus2counter).get(0).equals(product_1.getText().toString())) {
-                        wholeList.get(plus2counter).set(0,entry_field_product_name.getText().toString());
+                        wholeList.get(plus2counter).set(0,"Produkt");
                         Log.d("test enty fiel", "entry fielt:" + entry_field_product_name.getText().toString());
-                        wholeList.get(plus2counter).set(1, entry_field_product_number.getText().toString());
+                        wholeList.get(plus2counter).set(1, 0);
+                        notTopLevelList.add(entry_field_product_name.getText().toString());
+                        notTopLevelList.add(entry_field_product_number.getText().toString());
+                        topLevelList.add(notTopLevelList);
+                        Log.d("test topLevelList", "topLevelList="+ topLevelList);
+
+                        section_1.setVisibility(View.GONE);
+
                         writeCsv();
+                        adddata(topLevelList);
+                        topLevelList.clear();
+                        wholeList.clear();
+                        sortlagerbestand();
                         readlagerbestand();
                         sortlagerbestand();
                         break;
                     }
                 }
+                container_new_product.setVisibility(View.GONE);
+                container_buttons_edit_product.setVisibility(View.GONE);
+                storage_Image_button.setVisibility(View.VISIBLE);
+                camera_button.setVisibility(View.VISIBLE);
+                add_button.setVisibility(View.VISIBLE);
             }
         });
         stopp_button = findViewById(R.id.stopp_button);
@@ -1255,12 +1282,17 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             Log.wtf("Check my Shelf", "Error reading data file on line " + line, e);
             throw new RuntimeException(e);
+        } finally {
+        if (is != null) {
+            try {
+                is.close();
+            } catch (IOException e) {
+                Log.e("readlagerbestand", "Error closing input stream", e);
+            }
         }
+    }
 
-        Log.d("Alles Ausgeben", "Alles: " + wholeList);
-        Log.d("spezielles ausgeben", "test: " + wholeList.get(0).get(1));
-        //wholeList.get(0).set(2, 55);
-        //Log.d("spezielles ausgeben", "55?: " + wholeList.get(0).get(2));
+
     }
 
     private TextView no_product;
@@ -1494,6 +1526,9 @@ public class MainActivity extends AppCompatActivity {
             int value = entry.getValue();
             List<Object> item = new ArrayList<>();
             item.add(key);
+            if (value < 1){
+                value = 1;
+            }
             item.add(value);
             wholeList.add(item);
         }
