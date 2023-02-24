@@ -33,9 +33,13 @@ import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
     static {
@@ -1232,9 +1236,12 @@ public class MainActivity extends AppCompatActivity {
 
         int productCounter = 1; // start with the first product TextView
 
+
+
         for (int counter = 0; counter < wholeList.size(); counter++) {
             String productName = wholeList.get(counter).get(0).toString();
             String productquantity = wholeList.get(counter).get(1).toString();
+
 
 
             if (!productName.equals("Produkt")) {
@@ -1323,29 +1330,50 @@ public class MainActivity extends AppCompatActivity {
             int value = Integer.parseInt(item.get(1).toString());
             dataMap.put(key, value);
         }
-        dataMap.clear();
-        Log.d("map Data:", "dataMap befor topLevelLsit addet:" + dataMap);
-
 
         // Update the dataMap with values from topLevelList
         for (List<String> item : topLevelList) {
             String key = item.get(0);
             int value = Integer.parseInt(item.get(1));
 
-            if (dataMap.containsKey(key)) {
-                int oldValue = dataMap.get(key);
-                dataMap.put(key, oldValue + value);
-            } else {
-                dataMap.put(key, value);
+            if (!key.equals("Produkt")) {
+                Integer oldValue = dataMap.get(key);
+                if (oldValue == null) {
+                    oldValue = 0;
+                }
+                String replaceKey = null;
+                for (Map.Entry<String, Integer> entry : dataMap.entrySet()) {
+                    if (!entry.getKey().equals("Produkt") && entry.getValue() == value) {
+                        replaceKey = entry.getKey();
+                        break;
+                    }
+                }
+                if (replaceKey != null) {
+                    int replaceValue = dataMap.get(replaceKey);
+                    dataMap.put(replaceKey, 0);
+                    dataMap.put(key, oldValue + replaceValue);
+                } else {
+                    dataMap.put(key, oldValue + value);
+                }
             }
         }
-        Log.d("map Data:", "dataMap after topLevelLsit addet:" + dataMap);
 
-        // Update wholeList with values from dataMap
-        for (int counttwo = 0;counttwo < dataMap.size();counttwo++){
-            wholeList.remove(counttwo);
+        // Replace one of the keys with "Produkt" if there are duplicate values
+        Set<Integer> uniqueValues = new HashSet<>(dataMap.values());
+        if (uniqueValues.size() != dataMap.size()) {
+            for (int i = 0; i < wholeList.size(); i++) {
+                String key = wholeList.get(i).get(0).toString();
+                int value = Integer.parseInt(wholeList.get(i).get(1).toString());
+                if (value != 0 && !key.equals("Produkt") && Collections.frequency(dataMap.values(), value) > 1) {
+                    dataMap.put("Produkt", 0);
+                    wholeList.set(i, Arrays.asList("Produkt", 0));
+                    break;
+                }
+            }
         }
 
+        // Update wholeList with values from dataMap
+        wholeList.clear();
         for (Map.Entry<String, Integer> entry : dataMap.entrySet()) {
             String key = entry.getKey();
             int value = entry.getValue();
@@ -1354,13 +1382,16 @@ public class MainActivity extends AppCompatActivity {
             item.add(value);
             wholeList.add(item);
         }
-        Log.d("dataMap", "gesamte Data map=" + dataMap);
-        Log.d("whole List new", "List:" + wholeList);
-        // Write the updated data to CSV file
-        Log.d("This context:", "Again this context:" + this);
-        writeCsv();
 
+        // Write the updated data to CSV file
+        Log.d("whole List new", "List:" + wholeList);
+        writeCsv();
     }
+
+
+
+
+
 
     public void writeCsv() {
         File dir = new File(Environment.getExternalStorageDirectory(), "Documents");
