@@ -27,14 +27,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/button_update"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@drawable/button_update_image"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
 
     <ScrollView
         android:id="@+id/scroll_view"

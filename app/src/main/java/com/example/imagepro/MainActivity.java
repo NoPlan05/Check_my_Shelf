@@ -86,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText entry_field_product_name;
     private EditText entry_field_product_number;
-    private ImageView button_update;
     private ImageView add_button;
     private ImageView stopp_button;
     private ConstraintLayout container_buttons_edit_product;
@@ -1221,15 +1220,6 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
-        button_update = findViewById(R.id.button_update);
-        button_update.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //onCreate(savedInstanceState);
-                readlagerbestand();
-                sortlagerbestand();
-            }
-        });
 
 
     }
@@ -1406,56 +1396,68 @@ public class MainActivity extends AppCompatActivity {
                         product_2.setText(productName);
                         section_2.setVisibility(View.VISIBLE);
                         number_2.setText(productquantity);
+                        section_3.setVisibility(View.GONE);
                         break;
                     case 3:
                         product_3.setText(productName);
                         section_3.setVisibility(View.VISIBLE);
                         number_3.setText(productquantity);
+                        section_4.setVisibility(View.GONE);
                         break;
                     case 4:
                         product_4.setText(productName);
                         section_4.setVisibility(View.VISIBLE);
                         number_4.setText(productquantity);
+                        section_5.setVisibility(View.GONE);
                         break;
                     case 5:
                         product_5.setText(productName);
                         section_5.setVisibility(View.VISIBLE);
                         number_5.setText(productquantity);
+                        section_6.setVisibility(View.GONE);
                         break;
                     case 6:
                         product_6.setText(productName);
                         section_6.setVisibility(View.VISIBLE);
                         number_6.setText(productquantity);
+                        section_7.setVisibility(View.GONE);
                         break;
                     case 7:
                         product_7.setText(productName);
                         section_7.setVisibility(View.VISIBLE);
                         number_7.setText(productquantity);
+                        section_8.setVisibility(View.GONE);
                         break;
                     case 8:
                         product_8.setText(productName);
                         section_8.setVisibility(View.VISIBLE);
                         number_8.setText(productquantity);
+                        section_9.setVisibility(View.GONE);
                         break;
                     case 9:
                         product_9.setText(productName);
                         section_9.setVisibility(View.VISIBLE);
                         number_9.setText(productquantity);
+                        section_10.setVisibility(View.GONE);
                         break;
                     case 10:
                         product_10.setText(productName);
                         section_10.setVisibility(View.VISIBLE);
                         number_10.setText(productquantity);
+                        section_11.setVisibility(View.GONE);
                         break;
                     case 11:
                         product_11.setText(productName);
                         section_11.setVisibility(View.VISIBLE);
                         number_11.setText(productquantity);
+                        section_12.setVisibility(View.GONE);
                         break;
                     case 12:
                         product_12.setText(productName);
                         section_12.setVisibility(View.VISIBLE);
                         number_12.setText(productquantity);
+                        break;
+                    default:
                         break;
 
                     // add more cases for each product as needed
