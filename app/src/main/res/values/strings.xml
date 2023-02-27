@@ -5,7 +5,7 @@
     <string name="strorage_Image_button">Inventarübersicht</string>
     <string name="camera_button">Kamera</string>
     <string name="add_button">Produkt hinzufügen</string>
-    <string name="no_product_string">Sie Haben noch keine Produkte einsortiert!</string>
+    <string name="no_product_string">Sie haben noch keine Produkte einsortiert!</string>
     <string name="entry_field_Hint">Name des neuen Produkts</string>
     <string name="cancel_button">Abbrechen</string>
     <string name="apply_button">Anwenden</string>
