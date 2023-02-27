@@ -27,9 +27,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ImagePro"
         android:requestLegacyExternalStorage="true">
-        <activity
-            android:name=".storageRecognitionActivity"
-            android:exported="true" />
 
         <meta-data
             android:name="com.google.mlkit.vision.DEPENDENCIES"

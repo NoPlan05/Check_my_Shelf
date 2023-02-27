@@ -2663,6 +2663,7 @@ public class MainActivity extends AppCompatActivity {
                         section_1.setVisibility(View.VISIBLE);
                         number_1.setText(productquantity);
                         no_product.setVisibility(View.GONE);
+                        section_2.setVisibility(View.GONE);
                         break;
                     case 2:
                         product_2.setText(productName);
