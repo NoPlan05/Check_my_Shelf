@@ -2792,7 +2792,6 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if (replaceKey != null) {
                     int replaceValue = dataMap.get(replaceKey);
-                    dataMap.put(replaceKey, 0);
                     dataMap.put(key, oldValue + replaceValue);
                 } else {
                     dataMap.put(key, oldValue + value);
@@ -2821,9 +2820,7 @@ public class MainActivity extends AppCompatActivity {
             int value = entry.getValue();
             List<Object> item = new ArrayList<>();
             item.add(key);
-            if (value < 1){
-                value = 1;
-            }
+
             item.add(value);
             wholeList.add(item);
         }
