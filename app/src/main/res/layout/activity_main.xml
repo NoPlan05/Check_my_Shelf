@@ -35,7 +35,7 @@
         android:fillViewport="true"
         android:scrollbarDefaultDelayBeforeFade="1000"
         android:scrollbarSize="6dp"
-        app:layout_constraintBottom_toTopOf="@+id/storage_Image_button"
+        app:layout_constraintBottom_toTopOf="@+id/camera_button"
         app:layout_constraintTop_toBottomOf="@+id/AppName">
 
 
@@ -1038,47 +1038,684 @@
                     app:layout_constraintWidth_min="48dp"
                     app:layout_constraintWidth_percent="0.12" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/section_13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/round_corner"
+                android:gravity="center_vertical|start"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/section_12"
+                android:visibility="gone">
+
+
+                <TextView
+                    android:id="@+id/product_13"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Produkt"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.6" />
+
+                <Button
+                    android:id="@+id/button_plus_13"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:backgroundTint="@color/dark_gray"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/plus"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_13"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintStart_toEndOf="@+id/product_13"
+                    app:layout_constraintTop_toTopOf="@+id/section_13"
+                    app:layout_constraintWidth_min="48dp"
+                    app:layout_constraintWidth_percent="0.13" />
+
+                <TextView
+                    android:id="@+id/number_13"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_13"
+                    app:layout_constraintEnd_toStartOf="@+id/button_minus_13"
+                    app:layout_constraintStart_toEndOf="@+id/button_plus_13"
+                    app:layout_constraintTop_toTopOf="@+id/section_13"
+                    app:layout_constraintWidth_percent="0.12" />
+
+                <Button
+                    android:id="@+id/button_minus_13"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="5dp"
+                    android:backgroundTint="@color/dark_gray"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/minus"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_13"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="@+id/section_13"
+                    app:layout_constraintTop_toTopOf="@+id/section_13"
+                    app:layout_constraintWidth_min="48dp"
+                    app:layout_constraintWidth_percent="0.12" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/section_14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/round_corner"
+                android:gravity="center_vertical|start"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/section_13"
+                android:visibility="gone">
+
+
+                <TextView
+                    android:id="@+id/product_14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Produkt"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.6" />
+
+                <Button
+                    android:id="@+id/button_plus_14"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:backgroundTint="@color/dark_gray"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/plus"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_14"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintStart_toEndOf="@+id/product_14"
+                    app:layout_constraintTop_toTopOf="@+id/section_14"
+                    app:layout_constraintWidth_min="48dp"
+                    app:layout_constraintWidth_percent="0.12" />
+
+                <TextView
+                    android:id="@+id/number_14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_14"
+                    app:layout_constraintEnd_toStartOf="@+id/button_minus_14"
+                    app:layout_constraintStart_toEndOf="@+id/button_plus_14"
+                    app:layout_constraintTop_toTopOf="@+id/section_14"
+                    app:layout_constraintWidth_percent="0.12" />
+
+                <Button
+                    android:id="@+id/button_minus_14"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="5dp"
+                    android:backgroundTint="@color/dark_gray"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/minus"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_14"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="@+id/section_14"
+                    app:layout_constraintTop_toTopOf="@+id/section_14"
+                    app:layout_constraintWidth_min="48dp"
+                    app:layout_constraintWidth_percent="0.12" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/section_15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/round_corner"
+                android:gravity="center_vertical|start"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/section_14"
+                android:visibility="gone">
+
+
+                <TextView
+                    android:id="@+id/product_15"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Produkt"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.6" />
+
+                <Button
+                    android:id="@+id/button_plus_15"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:backgroundTint="@color/dark_gray"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/plus"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_15"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintStart_toEndOf="@+id/product_15"
+                    app:layout_constraintTop_toTopOf="@+id/section_15"
+                    app:layout_constraintWidth_min="48dp"
+                    app:layout_constraintWidth_percent="0.12" />
+
+                <TextView
+                    android:id="@+id/number_15"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_15"
+                    app:layout_constraintEnd_toStartOf="@+id/button_minus_15"
+                    app:layout_constraintStart_toEndOf="@+id/button_plus_15"
+                    app:layout_constraintTop_toTopOf="@+id/section_15"
+                    app:layout_constraintWidth_percent="0.12" />
+
+                <Button
+                    android:id="@+id/button_minus_15"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="5dp"
+                    android:backgroundTint="@color/dark_gray"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/minus"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_15"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="@+id/section_15"
+                    app:layout_constraintTop_toTopOf="@+id/section_15"
+                    app:layout_constraintWidth_min="48dp"
+                    app:layout_constraintWidth_percent="0.12" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/section_16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/round_corner"
+                android:gravity="center_vertical|start"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/section_15"
+                android:visibility="gone">
+
+
+                <TextView
+                    android:id="@+id/product_16"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Produkt"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.6" />
+
+                <Button
+                    android:id="@+id/button_plus_16"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:backgroundTint="@color/dark_gray"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/plus"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_16"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintStart_toEndOf="@+id/product_16"
+                    app:layout_constraintTop_toTopOf="@+id/section_16"
+                    app:layout_constraintWidth_min="48dp"
+                    app:layout_constraintWidth_percent="0.12" />
+
+                <TextView
+                    android:id="@+id/number_16"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_16"
+                    app:layout_constraintEnd_toStartOf="@+id/button_minus_16"
+                    app:layout_constraintStart_toEndOf="@+id/button_plus_16"
+                    app:layout_constraintTop_toTopOf="@+id/section_16"
+                    app:layout_constraintWidth_percent="0.12" />
+
+                <Button
+                    android:id="@+id/button_minus_16"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="5dp"
+                    android:backgroundTint="@color/dark_gray"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/minus"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_16"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="@+id/section_16"
+                    app:layout_constraintTop_toTopOf="@+id/section_16"
+                    app:layout_constraintWidth_min="48dp"
+                    app:layout_constraintWidth_percent="0.12" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/section_17"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/round_corner"
+                android:gravity="center_vertical|start"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/section_16"
+                android:visibility="gone">
+
+
+                <TextView
+                    android:id="@+id/product_17"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Produkt"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.6" />
+
+                <Button
+                    android:id="@+id/button_plus_17"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:backgroundTint="@color/dark_gray"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/plus"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_17"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintStart_toEndOf="@+id/product_17"
+                    app:layout_constraintTop_toTopOf="@+id/section_17"
+                    app:layout_constraintWidth_min="48dp"
+                    app:layout_constraintWidth_percent="0.12" />
+
+                <TextView
+                    android:id="@+id/number_17"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_17"
+                    app:layout_constraintEnd_toStartOf="@+id/button_minus_17"
+                    app:layout_constraintStart_toEndOf="@+id/button_plus_17"
+                    app:layout_constraintTop_toTopOf="@+id/section_17"
+                    app:layout_constraintWidth_percent="0.12" />
+
+                <Button
+                    android:id="@+id/button_minus_17"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="5dp"
+                    android:backgroundTint="@color/dark_gray"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/minus"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_17"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="@+id/section_17"
+                    app:layout_constraintTop_toTopOf="@+id/section_17"
+                    app:layout_constraintWidth_min="48dp"
+                    app:layout_constraintWidth_percent="0.12" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/section_18"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/round_corner"
+                android:gravity="center_vertical|start"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/section_17"
+                android:visibility="gone">
+
+
+                <TextView
+                    android:id="@+id/product_18"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Produkt"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.6" />
+
+                <Button
+                    android:id="@+id/button_plus_18"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:backgroundTint="@color/dark_gray"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/plus"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_18"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintStart_toEndOf="@+id/product_18"
+                    app:layout_constraintTop_toTopOf="@+id/section_18"
+                    app:layout_constraintWidth_min="48dp"
+                    app:layout_constraintWidth_percent="0.12" />
+
+                <TextView
+                    android:id="@+id/number_18"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_18"
+                    app:layout_constraintEnd_toStartOf="@+id/button_minus_18"
+                    app:layout_constraintStart_toEndOf="@+id/button_plus_18"
+                    app:layout_constraintTop_toTopOf="@+id/section_18"
+                    app:layout_constraintWidth_percent="0.12" />
+
+                <Button
+                    android:id="@+id/button_minus_18"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="5dp"
+                    android:backgroundTint="@color/dark_gray"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/minus"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_18"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="@+id/section_18"
+                    app:layout_constraintTop_toTopOf="@+id/section_18"
+                    app:layout_constraintWidth_min="48dp"
+                    app:layout_constraintWidth_percent="0.12" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/section_19"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/round_corner"
+                android:gravity="center_vertical|start"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/section_18"
+                android:visibility="gone">
+
+
+                <TextView
+                    android:id="@+id/product_19"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Produkt"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.6" />
+
+                <Button
+                    android:id="@+id/button_plus_19"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:backgroundTint="@color/dark_gray"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/plus"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_19"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintStart_toEndOf="@+id/product_19"
+                    app:layout_constraintTop_toTopOf="@+id/section_19"
+                    app:layout_constraintWidth_min="48dp"
+                    app:layout_constraintWidth_percent="0.12" />
+
+                <TextView
+                    android:id="@+id/number_19"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_19"
+                    app:layout_constraintEnd_toStartOf="@+id/button_minus_19"
+                    app:layout_constraintStart_toEndOf="@+id/button_plus_19"
+                    app:layout_constraintTop_toTopOf="@+id/section_19"
+                    app:layout_constraintWidth_percent="0.12" />
+
+                <Button
+                    android:id="@+id/button_minus_19"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="5dp"
+                    android:backgroundTint="@color/dark_gray"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/minus"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_19"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="@+id/section_19"
+                    app:layout_constraintTop_toTopOf="@+id/section_19"
+                    app:layout_constraintWidth_min="48dp"
+                    app:layout_constraintWidth_percent="0.12" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/section_20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/round_corner"
+                android:gravity="center_vertical|start"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/section_19"
+                android:visibility="gone">
+
+
+                <TextView
+                    android:id="@+id/product_20"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Produkt"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.6" />
+
+                <Button
+                    android:id="@+id/button_plus_20"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:backgroundTint="@color/dark_gray"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/plus"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_20"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintStart_toEndOf="@+id/product_20"
+                    app:layout_constraintTop_toTopOf="@+id/section_20"
+                    app:layout_constraintWidth_min="48dp"
+                    app:layout_constraintWidth_percent="0.12" />
+
+                <TextView
+                    android:id="@+id/number_20"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_20"
+                    app:layout_constraintEnd_toStartOf="@+id/button_minus_20"
+                    app:layout_constraintStart_toEndOf="@+id/button_plus_20"
+                    app:layout_constraintTop_toTopOf="@+id/section_20"
+                    app:layout_constraintWidth_percent="0.12" />
+
+                <Button
+                    android:id="@+id/button_minus_20"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="5dp"
+                    android:backgroundTint="@color/dark_gray"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/minus"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/section_20"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="@+id/section_20"
+                    app:layout_constraintTop_toTopOf="@+id/section_20"
+                    app:layout_constraintWidth_min="48dp"
+                    app:layout_constraintWidth_percent="0.12" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
 
     <ImageView
-        android:id="@+id/storage_Image_button"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="40dp"
-        android:background="@drawable/storage_image_white"
-        android:contentDescription="@string/strorage_Image_button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintEnd_toStartOf="@+id/camera_button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintWidth_percent="0.14" />
-
-    <ImageView
         android:id="@+id/camera_button"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="30dp"
         android:background="@drawable/scan_button_image_white"
         android:contentDescription="@string/camera_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toStartOf="@+id/add_button"
-        app:layout_constraintStart_toEndOf="@+id/storage_Image_button"
+        app:layout_constraintHorizontal_bias="0.423"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintWidth_percent="0.14" />
 
     <ImageView
         android:id="@+id/add_button"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="30dp"
         android:background="@drawable/add_button_image"
         android:contentDescription="@string/add_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/camera_button"
+        app:layout_constraintHorizontal_bias="0.739"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintWidth_percent="0.14" />
 
     <androidx.constraintlayout.widget.ConstraintLayout

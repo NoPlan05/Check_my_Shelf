@@ -231,18 +231,6 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
                 return false;
             }
         });
-        //to change back to the image
-        // same on press change for colors as in scan_button
-        // first we check if Camera_or_recognizeText is recognizeText
-        // if it is camera pressing this Button will do nothing because photo was not taken
-        // if this button is clicked make textview invisible and add capture image to current_image
-        show_image_button = findViewById(R.id.show_image_button);
-        show_image_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(CameraActivity.this,storageRecognitionActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
-            }
-        });
 
 
     };

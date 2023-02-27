@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private ImageView camera_button;
-    private ImageView storage_Image_button;
     private TextView number;
     private Button button_plus_1;
     private Button button_minus_1;
@@ -77,6 +76,12 @@ public class MainActivity extends AppCompatActivity {
     private Button button_minus_11;
     private Button button_plus_12;
     private Button button_minus_12;
+    private Button button_plus_13;
+    private Button button_minus_13;
+    private Button button_plus_14;
+    private Button button_minus_14;
+    private Button button_plus_15;
+    private Button button_minus_15;
 
 
     private ImageView cancel_button;
@@ -117,17 +122,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, CameraActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
             }
         });
-        // to go in to storage
-        storage_Image_button = findViewById(R.id.storage_Image_button);
-        storage_Image_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, storageRecognitionActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
-                readlagerbestand();
-                sortlagerbestand();
-                writeCsv();
-            }
-        });
 
         add_button = findViewById(R.id.add_button);
         cancel_button = findViewById(R.id.cancel_button);
@@ -139,7 +133,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 container_new_product.setVisibility(View.VISIBLE);
                 container_buttons_new_product.setVisibility(View.VISIBLE);
-                storage_Image_button.setVisibility(View.GONE);
                 camera_button.setVisibility(View.GONE);
                 add_button.setVisibility(View.GONE);
                 entry_field_product_name.requestFocus();
@@ -154,7 +147,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 container_new_product.setVisibility(View.GONE);
                 container_buttons_new_product.setVisibility(View.GONE);
-                storage_Image_button.setVisibility(View.VISIBLE);
                 camera_button.setVisibility(View.VISIBLE);
                 add_button.setVisibility(View.VISIBLE);
             }
@@ -178,6 +170,7 @@ public class MainActivity extends AppCompatActivity {
                         notTopLevelList.add(entry_field_product_number.getText().toString());
                         topLevelList.add(notTopLevelList);
                         Log.d("test topLevelList", "topLevelList="+ topLevelList);
+
                         adddata(topLevelList);
                         topLevelList.clear();
                         break;
@@ -185,7 +178,6 @@ public class MainActivity extends AppCompatActivity {
                 }
                 container_new_product.setVisibility(View.GONE);
                 container_buttons_new_product.setVisibility(View.GONE);
-                storage_Image_button.setVisibility(View.VISIBLE);
                 camera_button.setVisibility(View.VISIBLE);
                 add_button.setVisibility(View.VISIBLE);
 
@@ -285,8 +277,7 @@ public class MainActivity extends AppCompatActivity {
                     for (int counter1 = 0; counter1 < wholeList.size(); counter1++) {
                         //Log.d("Klick", "For schleife ausgefürt");
                         if (wholeList.get(counter1).get(0).equals(product_1.getText())) {
-                            wholeList.get(counter1).set(0, "Produkt");
-                            wholeList.get(counter1).set(1, 0);
+                            wholeList.remove(counter1);
                             section_1.setVisibility(View.GONE);
                             writeCsv();
                             readlagerbestand();
@@ -305,24 +296,7 @@ public class MainActivity extends AppCompatActivity {
         product_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                change_button = findViewById(R.id.change_button);
-                stopp_button = findViewById(R.id.stopp_button);
-                container_new_product = findViewById(R.id.container_new_product);
-                container_buttons_edit_product = findViewById(R.id.container_buttons_edit_product);
-                entry_field_product_name = findViewById(R.id.entry_field_product_name);
-
-                        container_new_product.setVisibility(View.VISIBLE);
-                        container_buttons_edit_product.setVisibility(View.VISIBLE);
-                        storage_Image_button.setVisibility(View.GONE);
-                        camera_button.setVisibility(View.GONE);
-                        add_button.setVisibility(View.GONE);
-                        entry_field_product_name.requestFocus();
-                        InputMethodManager imm = (InputMethodManager)
-                                getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.showSoftInput(entry_field_product_name, InputMethodManager.SHOW_IMPLICIT);
-
-                entry_field_product_name = findViewById(R.id.entry_field_product_name);
-                entry_field_product_number = findViewById(R.id.entry_field_product_number);
+                edit_open();
             }
         });
         change_button = findViewById(R.id.change_button);
@@ -333,17 +307,17 @@ public class MainActivity extends AppCompatActivity {
                 List<String> notTopLevelList = new ArrayList<>();
                 topLevelList.clear();
                 Log.d("test enty fiel", "entry fielt:" + entry_field_product_name.getText().toString());
-                for (int plus2counter = 0; plus2counter < wholeList.size(); plus2counter++) {
-                    if (wholeList.get(plus2counter).get(0).equals(product_1.getText().toString())) {
-                        wholeList.get(plus2counter).set(0,"Produkt");
+                for (int pluscounter = 0; pluscounter < wholeList.size(); pluscounter++) {
+                    if (wholeList.get(pluscounter).get(0).equals(product_1.getText().toString())) {
+                        wholeList.remove(pluscounter);
                         Log.d("test enty fiel", "entry fielt:" + entry_field_product_name.getText().toString());
-                        wholeList.get(plus2counter).set(1, 0);
                         notTopLevelList.add(entry_field_product_name.getText().toString());
                         notTopLevelList.add(entry_field_product_number.getText().toString());
                         topLevelList.add(notTopLevelList);
                         Log.d("test topLevelList", "topLevelList="+ topLevelList);
 
                         section_1.setVisibility(View.GONE);
+                        section_2.setVisibility(View.GONE);
 
                         writeCsv();
                         adddata(topLevelList);
@@ -357,7 +331,6 @@ public class MainActivity extends AppCompatActivity {
                 }
                 container_new_product.setVisibility(View.GONE);
                 container_buttons_edit_product.setVisibility(View.GONE);
-                storage_Image_button.setVisibility(View.VISIBLE);
                 camera_button.setVisibility(View.VISIBLE);
                 add_button.setVisibility(View.VISIBLE);
             }
@@ -366,11 +339,7 @@ public class MainActivity extends AppCompatActivity {
         stopp_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                container_new_product.setVisibility(View.GONE);
-                container_buttons_edit_product.setVisibility(View.GONE);
-                storage_Image_button.setVisibility(View.VISIBLE);
-                camera_button.setVisibility(View.VISIBLE);
-                change_button.setVisibility(View.VISIBLE);
+                edit_close();
             }
         });
         button_new_product_minus = findViewById(R.id.button_new_product_minus);
@@ -460,8 +429,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     for (int counter2 = 0; counter2 < wholeList.size(); counter2++) {
                         if (wholeList.get(counter2).get(0).equals(product_2.getText())) {
-                            wholeList.get(counter2).set(0, "Produkt");
-                            wholeList.get(counter2).set(1, 0);
+                            wholeList.remove(counter2);
                             section_2.setVisibility(View.GONE);
                             writeCsv();
                             readlagerbestand();
@@ -475,6 +443,83 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
+        });
+        product_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                edit_open();
+            }
+        });
+        change_button = findViewById(R.id.change_button);
+        change_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<List<String>> topLevelList = new ArrayList<>(Arrays.asList());
+                List<String> notTopLevelList = new ArrayList<>();
+                topLevelList.clear();
+                Log.d("test enty fiel", "entry fielt:" + entry_field_product_name.getText().toString());
+                for (int pluscounter = 0; pluscounter < wholeList.size(); pluscounter++) {
+                    if (wholeList.get(pluscounter).get(0).equals(product_2.getText().toString())) {
+                        wholeList.remove(pluscounter);
+                        Log.d("test enty fiel", "entry fielt:" + entry_field_product_name.getText().toString());
+                        notTopLevelList.add(entry_field_product_name.getText().toString());
+                        notTopLevelList.add(entry_field_product_number.getText().toString());
+                        topLevelList.add(notTopLevelList);
+                        Log.d("test topLevelList", "topLevelList="+ topLevelList);
+
+                        section_2.setVisibility(View.GONE);
+                        section_3.setVisibility(View.GONE);
+
+                        writeCsv();
+                        adddata(topLevelList);
+                        topLevelList.clear();
+                        wholeList.clear();
+                        sortlagerbestand();
+                        readlagerbestand();
+                        sortlagerbestand();
+                        break;
+                    }
+                }
+                container_new_product.setVisibility(View.GONE);
+                container_buttons_edit_product.setVisibility(View.GONE);
+                camera_button.setVisibility(View.VISIBLE);
+                add_button.setVisibility(View.VISIBLE);
+            }
+        });
+        stopp_button = findViewById(R.id.stopp_button);
+        stopp_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                edit_close();
+            }
+        });
+        button_new_product_minus = findViewById(R.id.button_new_product_minus);
+        button_new_product_plus = findViewById(R.id.button_new_product_plus);
+        button_new_product_minus = findViewById(R.id.button_new_product_minus);
+        button_new_product_plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String countString = entry_field_product_number.getText().toString();
+                // Convert value to a number and increment it
+                Integer count = Integer.parseInt(countString);
+                count++;
+                // Display the new value in the text view.
+                entry_field_product_number.setText(String.valueOf(count));
+            }
+        });
+        button_new_product_minus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String countString = entry_field_product_number.getText().toString();
+                // Convert value to a number and increment it
+                Integer count = Integer.parseInt(countString);
+                if (count >= 1){
+                    count--;
+                }
+
+                // Display the new value in the text view.
+                entry_field_product_number.setText(String.valueOf(count));
+            }
         });
         button_plus_3 = findViewById(R.id.button_plus_3);
         number_3 = findViewById(R.id.number_3);
@@ -535,9 +580,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     for (int counter3 = 0; counter3 < wholeList.size(); counter3++) {
                         if (wholeList.get(counter3).get(0).equals(product_3.getText())) {
-                            wholeList.get(counter3).set(0, "Produkt");
-                            wholeList.get(counter3).set(1, 0);
-                            section_3.setVisibility(View.GONE);
+                            wholeList.remove(counter3);
                             writeCsv();
                             readlagerbestand();
                             sortlagerbestand();
@@ -550,6 +593,83 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
+        });
+        product_3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                edit_open();
+            }
+        });
+        change_button = findViewById(R.id.change_button);
+        change_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<List<String>> topLevelList = new ArrayList<>(Arrays.asList());
+                List<String> notTopLevelList = new ArrayList<>();
+                topLevelList.clear();
+                Log.d("test enty fiel", "entry fielt:" + entry_field_product_name.getText().toString());
+                for (int pluscounter = 0; pluscounter < wholeList.size(); pluscounter++) {
+                    if (wholeList.get(pluscounter).get(0).equals(product_3.getText().toString())) {
+                        wholeList.remove(pluscounter);
+                        Log.d("test enty fiel", "entry fielt:" + entry_field_product_name.getText().toString());
+                        notTopLevelList.add(entry_field_product_name.getText().toString());
+                        notTopLevelList.add(entry_field_product_number.getText().toString());
+                        topLevelList.add(notTopLevelList);
+                        Log.d("test topLevelList", "topLevelList="+ topLevelList);
+
+                        section_3.setVisibility(View.GONE);
+                        section_4.setVisibility(View.GONE);
+
+                        writeCsv();
+                        adddata(topLevelList);
+                        topLevelList.clear();
+                        wholeList.clear();
+                        sortlagerbestand();
+                        readlagerbestand();
+                        sortlagerbestand();
+                        break;
+                    }
+                }
+                container_new_product.setVisibility(View.GONE);
+                container_buttons_edit_product.setVisibility(View.GONE);
+                camera_button.setVisibility(View.VISIBLE);
+                add_button.setVisibility(View.VISIBLE);
+            }
+        });
+        stopp_button = findViewById(R.id.stopp_button);
+        stopp_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                edit_close();
+            }
+        });
+        button_new_product_minus = findViewById(R.id.button_new_product_minus);
+        button_new_product_plus = findViewById(R.id.button_new_product_plus);
+        button_new_product_minus = findViewById(R.id.button_new_product_minus);
+        button_new_product_plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String countString = entry_field_product_number.getText().toString();
+                // Convert value to a number and increment it
+                Integer count = Integer.parseInt(countString);
+                count++;
+                // Display the new value in the text view.
+                entry_field_product_number.setText(String.valueOf(count));
+            }
+        });
+        button_new_product_minus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String countString = entry_field_product_number.getText().toString();
+                // Convert value to a number and increment it
+                Integer count = Integer.parseInt(countString);
+                if (count >= 1){
+                    count--;
+                }
+
+                // Display the new value in the text view.
+                entry_field_product_number.setText(String.valueOf(count));
+            }
         });
         button_plus_4 = findViewById(R.id.button_plus_4);
         number_4 = findViewById(R.id.number_4);
@@ -610,8 +730,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     for (int counter4 = 0; counter4 < wholeList.size(); counter4++) {
                         if (wholeList.get(counter4).get(0).equals(product_4.getText())) {
-                            wholeList.get(counter4).set(0, "Produkt");
-                            wholeList.get(counter4).set(1, 0);
+                            wholeList.remove(counter4);
                             section_4.setVisibility(View.GONE);
                             writeCsv();
                             readlagerbestand();
@@ -625,6 +744,83 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
+        });
+        product_4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                edit_open();
+            }
+        });
+        change_button = findViewById(R.id.change_button);
+        change_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<List<String>> topLevelList = new ArrayList<>(Arrays.asList());
+                List<String> notTopLevelList = new ArrayList<>();
+                topLevelList.clear();
+                Log.d("test enty fiel", "entry fielt:" + entry_field_product_name.getText().toString());
+                for (int pluscounter = 0; pluscounter < wholeList.size(); pluscounter++) {
+                    if (wholeList.get(pluscounter).get(0).equals(product_4.getText().toString())) {
+                        wholeList.remove(pluscounter);
+                        Log.d("test enty fiel", "entry fielt:" + entry_field_product_name.getText().toString());
+                        notTopLevelList.add(entry_field_product_name.getText().toString());
+                        notTopLevelList.add(entry_field_product_number.getText().toString());
+                        topLevelList.add(notTopLevelList);
+                        Log.d("test topLevelList", "topLevelList="+ topLevelList);
+
+                        section_4.setVisibility(View.GONE);
+                        section_5.setVisibility(View.GONE);
+
+                        writeCsv();
+                        adddata(topLevelList);
+                        topLevelList.clear();
+                        wholeList.clear();
+                        sortlagerbestand();
+                        readlagerbestand();
+                        sortlagerbestand();
+                        break;
+                    }
+                }
+                container_new_product.setVisibility(View.GONE);
+                container_buttons_edit_product.setVisibility(View.GONE);
+                camera_button.setVisibility(View.VISIBLE);
+                add_button.setVisibility(View.VISIBLE);
+            }
+        });
+        stopp_button = findViewById(R.id.stopp_button);
+        stopp_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                edit_close();
+            }
+        });
+        button_new_product_minus = findViewById(R.id.button_new_product_minus);
+        button_new_product_plus = findViewById(R.id.button_new_product_plus);
+        button_new_product_minus = findViewById(R.id.button_new_product_minus);
+        button_new_product_plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String countString = entry_field_product_number.getText().toString();
+                // Convert value to a number and increment it
+                Integer count = Integer.parseInt(countString);
+                count++;
+                // Display the new value in the text view.
+                entry_field_product_number.setText(String.valueOf(count));
+            }
+        });
+        button_new_product_minus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String countString = entry_field_product_number.getText().toString();
+                // Convert value to a number and increment it
+                Integer count = Integer.parseInt(countString);
+                if (count >= 1){
+                    count--;
+                }
+
+                // Display the new value in the text view.
+                entry_field_product_number.setText(String.valueOf(count));
+            }
         });
         button_plus_5 = findViewById(R.id.button_plus_5);
         number_5 = findViewById(R.id.number_5);
@@ -685,8 +881,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     for (int counter5 = 0; counter5 < wholeList.size(); counter5++) {
                         if (wholeList.get(counter5).get(0).equals(product_5.getText())) {
-                            wholeList.get(counter5).set(0, "Produkt");
-                            wholeList.get(counter5).set(1, 0);
+                            wholeList.remove(counter5);
                             section_5.setVisibility(View.GONE);
                             writeCsv();
                             readlagerbestand();
@@ -700,6 +895,83 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
+        });
+        product_5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                edit_open();
+            }
+        });
+        change_button = findViewById(R.id.change_button);
+        change_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<List<String>> topLevelList = new ArrayList<>(Arrays.asList());
+                List<String> notTopLevelList = new ArrayList<>();
+                topLevelList.clear();
+                Log.d("test enty fiel", "entry fielt:" + entry_field_product_name.getText().toString());
+                for (int pluscounter = 0; pluscounter < wholeList.size(); pluscounter++) {
+                    if (wholeList.get(pluscounter).get(0).equals(product_5.getText().toString())) {
+                        wholeList.remove(pluscounter);
+                        Log.d("test enty fiel", "entry fielt:" + entry_field_product_name.getText().toString());
+                        notTopLevelList.add(entry_field_product_name.getText().toString());
+                        notTopLevelList.add(entry_field_product_number.getText().toString());
+                        topLevelList.add(notTopLevelList);
+                        Log.d("test topLevelList", "topLevelList="+ topLevelList);
+
+                        section_5.setVisibility(View.GONE);
+                        section_6.setVisibility(View.GONE);
+
+                        writeCsv();
+                        adddata(topLevelList);
+                        topLevelList.clear();
+                        wholeList.clear();
+                        sortlagerbestand();
+                        readlagerbestand();
+                        sortlagerbestand();
+                        break;
+                    }
+                }
+                container_new_product.setVisibility(View.GONE);
+                container_buttons_edit_product.setVisibility(View.GONE);
+                camera_button.setVisibility(View.VISIBLE);
+                add_button.setVisibility(View.VISIBLE);
+            }
+        });
+        stopp_button = findViewById(R.id.stopp_button);
+        stopp_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                edit_close();
+            }
+        });
+        button_new_product_minus = findViewById(R.id.button_new_product_minus);
+        button_new_product_plus = findViewById(R.id.button_new_product_plus);
+        button_new_product_minus = findViewById(R.id.button_new_product_minus);
+        button_new_product_plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String countString = entry_field_product_number.getText().toString();
+                // Convert value to a number and increment it
+                Integer count = Integer.parseInt(countString);
+                count++;
+                // Display the new value in the text view.
+                entry_field_product_number.setText(String.valueOf(count));
+            }
+        });
+        button_new_product_minus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String countString = entry_field_product_number.getText().toString();
+                // Convert value to a number and increment it
+                Integer count = Integer.parseInt(countString);
+                if (count >= 1){
+                    count--;
+                }
+
+                // Display the new value in the text view.
+                entry_field_product_number.setText(String.valueOf(count));
+            }
         });
         button_plus_6 = findViewById(R.id.button_plus_6);
         number_6 = findViewById(R.id.number_6);
@@ -760,8 +1032,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     for (int counter6 = 0; counter6 < wholeList.size(); counter6++) {
                         if (wholeList.get(counter6).get(0).equals(product_6.getText())) {
-                            wholeList.get(counter6).set(0, "Produkt");
-                            wholeList.get(counter6).set(1, 0);
+                            wholeList.remove(counter6);
                             section_6.setVisibility(View.GONE);
                             writeCsv();
                             readlagerbestand();
@@ -775,6 +1046,83 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
+        });
+        product_6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                edit_open();
+            }
+        });
+        change_button = findViewById(R.id.change_button);
+        change_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<List<String>> topLevelList = new ArrayList<>(Arrays.asList());
+                List<String> notTopLevelList = new ArrayList<>();
+                topLevelList.clear();
+                Log.d("test enty fiel", "entry fielt:" + entry_field_product_name.getText().toString());
+                for (int pluscounter = 0; pluscounter < wholeList.size(); pluscounter++) {
+                    if (wholeList.get(pluscounter).get(0).equals(product_6.getText().toString())) {
+                        wholeList.remove(pluscounter);
+                        Log.d("test enty fiel", "entry fielt:" + entry_field_product_name.getText().toString());
+                        notTopLevelList.add(entry_field_product_name.getText().toString());
+                        notTopLevelList.add(entry_field_product_number.getText().toString());
+                        topLevelList.add(notTopLevelList);
+                        Log.d("test topLevelList", "topLevelList="+ topLevelList);
+
+                        section_6.setVisibility(View.GONE);
+                        section_7.setVisibility(View.GONE);
+
+                        writeCsv();
+                        adddata(topLevelList);
+                        topLevelList.clear();
+                        wholeList.clear();
+                        sortlagerbestand();
+                        readlagerbestand();
+                        sortlagerbestand();
+                        break;
+                    }
+                }
+                container_new_product.setVisibility(View.GONE);
+                container_buttons_edit_product.setVisibility(View.GONE);
+                camera_button.setVisibility(View.VISIBLE);
+                add_button.setVisibility(View.VISIBLE);
+            }
+        });
+        stopp_button = findViewById(R.id.stopp_button);
+        stopp_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                edit_close();
+            }
+        });
+        button_new_product_minus = findViewById(R.id.button_new_product_minus);
+        button_new_product_plus = findViewById(R.id.button_new_product_plus);
+        button_new_product_minus = findViewById(R.id.button_new_product_minus);
+        button_new_product_plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String countString = entry_field_product_number.getText().toString();
+                // Convert value to a number and increment it
+                Integer count = Integer.parseInt(countString);
+                count++;
+                // Display the new value in the text view.
+                entry_field_product_number.setText(String.valueOf(count));
+            }
+        });
+        button_new_product_minus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String countString = entry_field_product_number.getText().toString();
+                // Convert value to a number and increment it
+                Integer count = Integer.parseInt(countString);
+                if (count >= 1){
+                    count--;
+                }
+
+                // Display the new value in the text view.
+                entry_field_product_number.setText(String.valueOf(count));
+            }
         });
         button_plus_7 = findViewById(R.id.button_plus_7);
         number_7 = findViewById(R.id.number_7);
@@ -834,8 +1182,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     for (int counter7 = 0; counter7 < wholeList.size(); counter7++) {
                         if (wholeList.get(counter7).get(0).equals(product_7.getText())) {
-                            wholeList.get(counter7).set(0, "Produkt");
-                            wholeList.get(counter7).set(1, 0);
+                            wholeList.remove(counter7);
                             section_7.setVisibility(View.GONE);
                             writeCsv();
                             readlagerbestand();
@@ -849,6 +1196,83 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
+        });
+        product_7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                edit_open();
+            }
+        });
+        change_button = findViewById(R.id.change_button);
+        change_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<List<String>> topLevelList = new ArrayList<>(Arrays.asList());
+                List<String> notTopLevelList = new ArrayList<>();
+                topLevelList.clear();
+                Log.d("test enty fiel", "entry fielt:" + entry_field_product_name.getText().toString());
+                for (int pluscounter = 0; pluscounter < wholeList.size(); pluscounter++) {
+                    if (wholeList.get(pluscounter).get(0).equals(product_7.getText().toString())) {
+                        wholeList.remove(pluscounter);
+                        Log.d("test enty fiel", "entry fielt:" + entry_field_product_name.getText().toString());
+                        notTopLevelList.add(entry_field_product_name.getText().toString());
+                        notTopLevelList.add(entry_field_product_number.getText().toString());
+                        topLevelList.add(notTopLevelList);
+                        Log.d("test topLevelList", "topLevelList="+ topLevelList);
+
+                        section_7.setVisibility(View.GONE);
+                        section_8.setVisibility(View.GONE);
+
+                        writeCsv();
+                        adddata(topLevelList);
+                        topLevelList.clear();
+                        wholeList.clear();
+                        sortlagerbestand();
+                        readlagerbestand();
+                        sortlagerbestand();
+                        break;
+                    }
+                }
+                container_new_product.setVisibility(View.GONE);
+                container_buttons_edit_product.setVisibility(View.GONE);
+                camera_button.setVisibility(View.VISIBLE);
+                add_button.setVisibility(View.VISIBLE);
+            }
+        });
+        stopp_button = findViewById(R.id.stopp_button);
+        stopp_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                edit_close();
+            }
+        });
+        button_new_product_minus = findViewById(R.id.button_new_product_minus);
+        button_new_product_plus = findViewById(R.id.button_new_product_plus);
+        button_new_product_minus = findViewById(R.id.button_new_product_minus);
+        button_new_product_plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String countString = entry_field_product_number.getText().toString();
+                // Convert value to a number and increment it
+                Integer count = Integer.parseInt(countString);
+                count++;
+                // Display the new value in the text view.
+                entry_field_product_number.setText(String.valueOf(count));
+            }
+        });
+        button_new_product_minus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String countString = entry_field_product_number.getText().toString();
+                // Convert value to a number and increment it
+                Integer count = Integer.parseInt(countString);
+                if (count >= 1){
+                    count--;
+                }
+
+                // Display the new value in the text view.
+                entry_field_product_number.setText(String.valueOf(count));
+            }
         });
         button_plus_8 = findViewById(R.id.button_plus_8);
         number_8 = findViewById(R.id.number_8);
@@ -908,8 +1332,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     for (int counter8 = 0; counter8 < wholeList.size(); counter8++) {
                         if (wholeList.get(counter8).get(0).equals(product_8.getText())) {
-                            wholeList.get(counter8).set(0, "Produkt");
-                            wholeList.get(counter8).set(1, 0);
+                            wholeList.remove(counter8);
                             section_8.setVisibility(View.GONE);
                             writeCsv();
                             readlagerbestand();
@@ -923,6 +1346,83 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
+        });
+        product_8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                edit_open();
+            }
+        });
+        change_button = findViewById(R.id.change_button);
+        change_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<List<String>> topLevelList = new ArrayList<>(Arrays.asList());
+                List<String> notTopLevelList = new ArrayList<>();
+                topLevelList.clear();
+                Log.d("test enty fiel", "entry fielt:" + entry_field_product_name.getText().toString());
+                for (int pluscounter = 0; pluscounter < wholeList.size(); pluscounter++) {
+                    if (wholeList.get(pluscounter).get(0).equals(product_8.getText().toString())) {
+                        wholeList.remove(pluscounter);
+                        Log.d("test enty fiel", "entry fielt:" + entry_field_product_name.getText().toString());
+                        notTopLevelList.add(entry_field_product_name.getText().toString());
+                        notTopLevelList.add(entry_field_product_number.getText().toString());
+                        topLevelList.add(notTopLevelList);
+                        Log.d("test topLevelList", "topLevelList="+ topLevelList);
+
+                        section_8.setVisibility(View.GONE);
+                        section_9.setVisibility(View.GONE);
+
+                        writeCsv();
+                        adddata(topLevelList);
+                        topLevelList.clear();
+                        wholeList.clear();
+                        sortlagerbestand();
+                        readlagerbestand();
+                        sortlagerbestand();
+                        break;
+                    }
+                }
+                container_new_product.setVisibility(View.GONE);
+                container_buttons_edit_product.setVisibility(View.GONE);
+                camera_button.setVisibility(View.VISIBLE);
+                add_button.setVisibility(View.VISIBLE);
+            }
+        });
+        stopp_button = findViewById(R.id.stopp_button);
+        stopp_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                edit_close();
+            }
+        });
+        button_new_product_minus = findViewById(R.id.button_new_product_minus);
+        button_new_product_plus = findViewById(R.id.button_new_product_plus);
+        button_new_product_minus = findViewById(R.id.button_new_product_minus);
+        button_new_product_plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String countString = entry_field_product_number.getText().toString();
+                // Convert value to a number and increment it
+                Integer count = Integer.parseInt(countString);
+                count++;
+                // Display the new value in the text view.
+                entry_field_product_number.setText(String.valueOf(count));
+            }
+        });
+        button_new_product_minus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String countString = entry_field_product_number.getText().toString();
+                // Convert value to a number and increment it
+                Integer count = Integer.parseInt(countString);
+                if (count >= 1){
+                    count--;
+                }
+
+                // Display the new value in the text view.
+                entry_field_product_number.setText(String.valueOf(count));
+            }
         });
         button_plus_9 = findViewById(R.id.button_plus_9);
         number_9 = findViewById(R.id.number_9);
@@ -982,8 +1482,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     for (int counter9 = 0; counter9 < wholeList.size(); counter9++) {
                         if (wholeList.get(counter9).get(0).equals(product_9.getText())) {
-                            wholeList.get(counter9).set(0, "Produkt");
-                            wholeList.get(counter9).set(1, 0);
+                            wholeList.remove(counter9);
                             section_9.setVisibility(View.GONE);
                             writeCsv();
                             readlagerbestand();
@@ -997,6 +1496,83 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
+        });
+        product_9.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                edit_open();
+            }
+        });
+        change_button = findViewById(R.id.change_button);
+        change_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<List<String>> topLevelList = new ArrayList<>(Arrays.asList());
+                List<String> notTopLevelList = new ArrayList<>();
+                topLevelList.clear();
+                Log.d("test enty fiel", "entry fielt:" + entry_field_product_name.getText().toString());
+                for (int pluscounter = 0; pluscounter < wholeList.size(); pluscounter++) {
+                    if (wholeList.get(pluscounter).get(0).equals(product_9.getText().toString())) {
+                        wholeList.remove(pluscounter);
+                        Log.d("test enty fiel", "entry fielt:" + entry_field_product_name.getText().toString());
+                        notTopLevelList.add(entry_field_product_name.getText().toString());
+                        notTopLevelList.add(entry_field_product_number.getText().toString());
+                        topLevelList.add(notTopLevelList);
+                        Log.d("test topLevelList", "topLevelList="+ topLevelList);
+
+                        section_9.setVisibility(View.GONE);
+                        section_10.setVisibility(View.GONE);
+
+                        writeCsv();
+                        adddata(topLevelList);
+                        topLevelList.clear();
+                        wholeList.clear();
+                        sortlagerbestand();
+                        readlagerbestand();
+                        sortlagerbestand();
+                        break;
+                    }
+                }
+                container_new_product.setVisibility(View.GONE);
+                container_buttons_edit_product.setVisibility(View.GONE);
+                camera_button.setVisibility(View.VISIBLE);
+                add_button.setVisibility(View.VISIBLE);
+            }
+        });
+        stopp_button = findViewById(R.id.stopp_button);
+        stopp_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                edit_close();
+            }
+        });
+        button_new_product_minus = findViewById(R.id.button_new_product_minus);
+        button_new_product_plus = findViewById(R.id.button_new_product_plus);
+        button_new_product_minus = findViewById(R.id.button_new_product_minus);
+        button_new_product_plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String countString = entry_field_product_number.getText().toString();
+                // Convert value to a number and increment it
+                Integer count = Integer.parseInt(countString);
+                count++;
+                // Display the new value in the text view.
+                entry_field_product_number.setText(String.valueOf(count));
+            }
+        });
+        button_new_product_minus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String countString = entry_field_product_number.getText().toString();
+                // Convert value to a number and increment it
+                Integer count = Integer.parseInt(countString);
+                if (count >= 1){
+                    count--;
+                }
+
+                // Display the new value in the text view.
+                entry_field_product_number.setText(String.valueOf(count));
+            }
         });
         button_plus_10 = findViewById(R.id.button_plus_10);
         number_10 = findViewById(R.id.number_10);
@@ -1056,8 +1632,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     for (int counter10 = 0; counter10 < wholeList.size(); counter10++) {
                         if (wholeList.get(counter10).get(0).equals(product_10.getText())) {
-                            wholeList.get(counter10).set(0, "Produkt");
-                            wholeList.get(counter10).set(1, 0);
+                            wholeList.remove(counter10);
                             section_10.setVisibility(View.GONE);
                             writeCsv();
                             readlagerbestand();
@@ -1071,6 +1646,83 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
+        });
+        product_10.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                edit_open();
+            }
+        });
+        change_button = findViewById(R.id.change_button);
+        change_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<List<String>> topLevelList = new ArrayList<>(Arrays.asList());
+                List<String> notTopLevelList = new ArrayList<>();
+                topLevelList.clear();
+                Log.d("test enty fiel", "entry fielt:" + entry_field_product_name.getText().toString());
+                for (int pluscounter = 0; pluscounter < wholeList.size(); pluscounter++) {
+                    if (wholeList.get(pluscounter).get(0).equals(product_10.getText().toString())) {
+                        wholeList.remove(pluscounter);
+                        Log.d("test enty fiel", "entry fielt:" + entry_field_product_name.getText().toString());
+                        notTopLevelList.add(entry_field_product_name.getText().toString());
+                        notTopLevelList.add(entry_field_product_number.getText().toString());
+                        topLevelList.add(notTopLevelList);
+                        Log.d("test topLevelList", "topLevelList="+ topLevelList);
+
+                        section_10.setVisibility(View.GONE);
+                        section_11.setVisibility(View.GONE);
+
+                        writeCsv();
+                        adddata(topLevelList);
+                        topLevelList.clear();
+                        wholeList.clear();
+                        sortlagerbestand();
+                        readlagerbestand();
+                        sortlagerbestand();
+                        break;
+                    }
+                }
+                container_new_product.setVisibility(View.GONE);
+                container_buttons_edit_product.setVisibility(View.GONE);
+                camera_button.setVisibility(View.VISIBLE);
+                add_button.setVisibility(View.VISIBLE);
+            }
+        });
+        stopp_button = findViewById(R.id.stopp_button);
+        stopp_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                edit_close();
+            }
+        });
+        button_new_product_minus = findViewById(R.id.button_new_product_minus);
+        button_new_product_plus = findViewById(R.id.button_new_product_plus);
+        button_new_product_minus = findViewById(R.id.button_new_product_minus);
+        button_new_product_plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String countString = entry_field_product_number.getText().toString();
+                // Convert value to a number and increment it
+                Integer count = Integer.parseInt(countString);
+                count++;
+                // Display the new value in the text view.
+                entry_field_product_number.setText(String.valueOf(count));
+            }
+        });
+        button_new_product_minus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String countString = entry_field_product_number.getText().toString();
+                // Convert value to a number and increment it
+                Integer count = Integer.parseInt(countString);
+                if (count >= 1){
+                    count--;
+                }
+
+                // Display the new value in the text view.
+                entry_field_product_number.setText(String.valueOf(count));
+            }
         });
         button_plus_11 = findViewById(R.id.button_plus_11);
         number_11 = findViewById(R.id.number_11);
@@ -1130,8 +1782,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     for (int counter11 = 0; counter11 < wholeList.size(); counter11++) {
                         if (wholeList.get(counter11).get(0).equals(product_11.getText())) {
-                            wholeList.get(counter11).set(0, "Produkt");
-                            wholeList.get(counter11).set(1, 0);
+                            wholeList.remove(counter11);
                             section_11.setVisibility(View.GONE);
                             writeCsv();
                             readlagerbestand();
@@ -1145,6 +1796,83 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
+        });
+        product_11.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                edit_open();
+            }
+        });
+        change_button = findViewById(R.id.change_button);
+        change_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<List<String>> topLevelList = new ArrayList<>(Arrays.asList());
+                List<String> notTopLevelList = new ArrayList<>();
+                topLevelList.clear();
+                Log.d("test enty fiel", "entry fielt:" + entry_field_product_name.getText().toString());
+                for (int pluscounter = 0; pluscounter < wholeList.size(); pluscounter++) {
+                    if (wholeList.get(pluscounter).get(0).equals(product_11.getText().toString())) {
+                        wholeList.remove(pluscounter);
+                        Log.d("test enty fiel", "entry fielt:" + entry_field_product_name.getText().toString());
+                        notTopLevelList.add(entry_field_product_name.getText().toString());
+                        notTopLevelList.add(entry_field_product_number.getText().toString());
+                        topLevelList.add(notTopLevelList);
+                        Log.d("test topLevelList", "topLevelList="+ topLevelList);
+
+                        section_11.setVisibility(View.GONE);
+                        section_12.setVisibility(View.GONE);
+
+                        writeCsv();
+                        adddata(topLevelList);
+                        topLevelList.clear();
+                        wholeList.clear();
+                        sortlagerbestand();
+                        readlagerbestand();
+                        sortlagerbestand();
+                        break;
+                    }
+                }
+                container_new_product.setVisibility(View.GONE);
+                container_buttons_edit_product.setVisibility(View.GONE);
+                camera_button.setVisibility(View.VISIBLE);
+                add_button.setVisibility(View.VISIBLE);
+            }
+        });
+        stopp_button = findViewById(R.id.stopp_button);
+        stopp_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                edit_close();
+            }
+        });
+        button_new_product_minus = findViewById(R.id.button_new_product_minus);
+        button_new_product_plus = findViewById(R.id.button_new_product_plus);
+        button_new_product_minus = findViewById(R.id.button_new_product_minus);
+        button_new_product_plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String countString = entry_field_product_number.getText().toString();
+                // Convert value to a number and increment it
+                Integer count = Integer.parseInt(countString);
+                count++;
+                // Display the new value in the text view.
+                entry_field_product_number.setText(String.valueOf(count));
+            }
+        });
+        button_new_product_minus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String countString = entry_field_product_number.getText().toString();
+                // Convert value to a number and increment it
+                Integer count = Integer.parseInt(countString);
+                if (count >= 1){
+                    count--;
+                }
+
+                // Display the new value in the text view.
+                entry_field_product_number.setText(String.valueOf(count));
+            }
         });
         button_plus_12 = findViewById(R.id.button_plus_12);
         number_12 = findViewById(R.id.number_12);
@@ -1204,8 +1932,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     for (int counter12 = 0; counter12 < wholeList.size(); counter12++) {
                         if (wholeList.get(counter12).get(0).equals(product_12.getText())) {
-                            wholeList.get(counter12).set(0, "Produkt");
-                            wholeList.get(counter12).set(1, 0);
+                            wholeList.remove(counter12);
                             section_12.setVisibility(View.GONE);
                             writeCsv();
                             readlagerbestand();
@@ -1219,6 +1946,533 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
+        });
+        product_12.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                edit_open();
+            }
+        });
+        change_button = findViewById(R.id.change_button);
+        change_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<List<String>> topLevelList = new ArrayList<>(Arrays.asList());
+                List<String> notTopLevelList = new ArrayList<>();
+                topLevelList.clear();
+                Log.d("test enty fiel", "entry fielt:" + entry_field_product_name.getText().toString());
+                for (int pluscounter = 0; pluscounter < wholeList.size(); pluscounter++) {
+                    if (wholeList.get(pluscounter).get(0).equals(product_12.getText().toString())) {
+                        wholeList.remove(pluscounter);
+                        Log.d("test enty fiel", "entry fielt:" + entry_field_product_name.getText().toString());
+                        notTopLevelList.add(entry_field_product_name.getText().toString());
+                        notTopLevelList.add(entry_field_product_number.getText().toString());
+                        topLevelList.add(notTopLevelList);
+                        Log.d("test topLevelList", "topLevelList="+ topLevelList);
+
+                        section_12.setVisibility(View.GONE);
+                        section_13.setVisibility(View.GONE);
+
+                        writeCsv();
+                        adddata(topLevelList);
+                        topLevelList.clear();
+                        wholeList.clear();
+                        sortlagerbestand();
+                        readlagerbestand();
+                        sortlagerbestand();
+                        break;
+                    }
+                }
+                container_new_product.setVisibility(View.GONE);
+                container_buttons_edit_product.setVisibility(View.GONE);
+                camera_button.setVisibility(View.VISIBLE);
+                add_button.setVisibility(View.VISIBLE);
+            }
+        });
+        stopp_button = findViewById(R.id.stopp_button);
+        stopp_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                edit_close();
+            }
+        });
+        button_new_product_minus = findViewById(R.id.button_new_product_minus);
+        button_new_product_plus = findViewById(R.id.button_new_product_plus);
+        button_new_product_minus = findViewById(R.id.button_new_product_minus);
+        button_new_product_plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String countString = entry_field_product_number.getText().toString();
+                // Convert value to a number and increment it
+                Integer count = Integer.parseInt(countString);
+                count++;
+                // Display the new value in the text view.
+                entry_field_product_number.setText(String.valueOf(count));
+            }
+        });
+        button_new_product_minus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String countString = entry_field_product_number.getText().toString();
+                // Convert value to a number and increment it
+                Integer count = Integer.parseInt(countString);
+                if (count >= 1){
+                    count--;
+                }
+
+                // Display the new value in the text view.
+                entry_field_product_number.setText(String.valueOf(count));
+            }
+        });
+        button_plus_13 = findViewById(R.id.button_plus_13);
+        number_13 = findViewById(R.id.number_13);
+        button_plus_13.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String countString = number_13.getText().toString();
+                // Convert value to a number and increment it
+                Integer count = Integer.parseInt(countString);
+                count++;
+
+                for (int plus13counter = 0; plus13counter < wholeList.size(); plus13counter++) {
+                    if (wholeList.get(plus13counter).get(0).equals(product_13.getText().toString())) {
+                        wholeList.get(plus13counter).set(1, count);
+                        break;
+                    }
+                }
+
+
+                // Display the new value in the text view.
+                number_13.setText(String.valueOf(count));
+                //save the cange
+                writeCsv();
+                if (count == 1){
+                    button_minus_13.setBackground(defaultBackground);
+                    button_minus_13.setBackgroundTintList(colorStateList);
+                    button_minus_13.setText("-");
+                }
+            }
+        });
+        button_minus_13 = findViewById(R.id.button_minus_13);
+        number_13 = findViewById(R.id.number_13);
+        button_minus_13.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String countString = number_13.getText().toString();
+                // Convert value to a number and decrement it
+                int count = Integer.parseInt(countString);
+                if (count > 0) {
+                    count--;
+                    for (int minus13counter = 0; minus13counter < wholeList.size(); minus13counter++) {
+                        if (wholeList.get(minus13counter).get(0).equals(product_13.getText().toString())) {
+                            wholeList.get(minus13counter).set(1, count);
+                            break;
+                        }
+                    }
+                    // Display the new value in the text view.
+                    number_13.setText(String.valueOf(count));
+                    //save the cange
+                    writeCsv();
+                    if (count == 0){
+                        button_minus_13.setBackgroundResource(R.drawable.delete_button_image);
+                        button_minus_13.setBackgroundTintList(colorStateList);
+                        button_minus_13.setText("");
+                    }
+
+                } else {
+                    for (int counter13 = 0; counter13 < wholeList.size(); counter13++) {
+                        if (wholeList.get(counter13).get(0).equals(product_13.getText())) {
+                            wholeList.remove(counter13);
+                            section_13.setVisibility(View.GONE);
+                            writeCsv();
+                            readlagerbestand();
+                            sortlagerbestand();
+                            button_minus_13.setBackground(defaultBackground);
+                            button_minus_13.setBackgroundTintList(colorStateList);
+                            button_minus_13.setText("-");
+                            break;
+                        }
+                    }
+                }
+            }
+
+        });
+        product_13.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                edit_open();
+            }
+        });
+        change_button = findViewById(R.id.change_button);
+        change_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<List<String>> topLevelList = new ArrayList<>(Arrays.asList());
+                List<String> notTopLevelList = new ArrayList<>();
+                topLevelList.clear();
+                Log.d("test enty fiel", "entry fielt:" + entry_field_product_name.getText().toString());
+                for (int pluscounter = 0; pluscounter < wholeList.size(); pluscounter++) {
+                    if (wholeList.get(pluscounter).get(0).equals(product_13.getText().toString())) {
+                        wholeList.remove(pluscounter);
+                        Log.d("test enty fiel", "entry fielt:" + entry_field_product_name.getText().toString());
+                        notTopLevelList.add(entry_field_product_name.getText().toString());
+                        notTopLevelList.add(entry_field_product_number.getText().toString());
+                        topLevelList.add(notTopLevelList);
+                        Log.d("test topLevelList", "topLevelList="+ topLevelList);
+
+                        section_13.setVisibility(View.GONE);
+                        section_14.setVisibility(View.GONE);
+
+                        writeCsv();
+                        adddata(topLevelList);
+                        topLevelList.clear();
+                        wholeList.clear();
+                        sortlagerbestand();
+                        readlagerbestand();
+                        sortlagerbestand();
+                        break;
+                    }
+                }
+                container_new_product.setVisibility(View.GONE);
+                container_buttons_edit_product.setVisibility(View.GONE);
+                camera_button.setVisibility(View.VISIBLE);
+                add_button.setVisibility(View.VISIBLE);
+            }
+        });
+        stopp_button = findViewById(R.id.stopp_button);
+        stopp_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                edit_close();
+            }
+        });
+        button_new_product_minus = findViewById(R.id.button_new_product_minus);
+        button_new_product_plus = findViewById(R.id.button_new_product_plus);
+        button_new_product_minus = findViewById(R.id.button_new_product_minus);
+        button_new_product_plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String countString = entry_field_product_number.getText().toString();
+                // Convert value to a number and increment it
+                Integer count = Integer.parseInt(countString);
+                count++;
+                // Display the new value in the text view.
+                entry_field_product_number.setText(String.valueOf(count));
+            }
+        });
+        button_new_product_minus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String countString = entry_field_product_number.getText().toString();
+                // Convert value to a number and increment it
+                Integer count = Integer.parseInt(countString);
+                if (count >= 1){
+                    count--;
+                }
+
+                // Display the new value in the text view.
+                entry_field_product_number.setText(String.valueOf(count));
+            }
+        });
+        button_plus_14 = findViewById(R.id.button_plus_14);
+        number_14 = findViewById(R.id.number_14);
+        button_plus_14.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String countString = number_14.getText().toString();
+                // Convert value to a number and increment it
+                Integer count = Integer.parseInt(countString);
+                count++;
+
+                for (int plus14counter = 0; plus14counter < wholeList.size(); plus14counter++) {
+                    if (wholeList.get(plus14counter).get(0).equals(product_14.getText().toString())) {
+                        wholeList.get(plus14counter).set(1, count);
+                        break;
+                    }
+                }
+
+
+                // Display the new value in the text view.
+                number_14.setText(String.valueOf(count));
+                //save the cange
+                writeCsv();
+                if (count == 1){
+                    button_minus_14.setBackground(defaultBackground);
+                    button_minus_14.setBackgroundTintList(colorStateList);
+                    button_minus_14.setText("-");
+                }
+            }
+        });
+        button_minus_14 = findViewById(R.id.button_minus_14);
+        number_14 = findViewById(R.id.number_14);
+        button_minus_14.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String countString = number_14.getText().toString();
+                // Convert value to a number and decrement it
+                int count = Integer.parseInt(countString);
+                if (count > 0) {
+                    count--;
+                    for (int minus14counter = 0; minus14counter < wholeList.size(); minus14counter++) {
+                        if (wholeList.get(minus14counter).get(0).equals(product_14.getText().toString())) {
+                            wholeList.get(minus14counter).set(1, count);
+                            break;
+                        }
+                    }
+                    // Display the new value in the text view.
+                    number_14.setText(String.valueOf(count));
+                    //save the cange
+                    writeCsv();
+                    if (count == 0){
+                        button_minus_14.setBackgroundResource(R.drawable.delete_button_image);
+                        button_minus_14.setBackgroundTintList(colorStateList);
+                        button_minus_14.setText("");
+                    }
+
+                } else {
+                    for (int counter14 = 0; counter14 < wholeList.size(); counter14++) {
+                        if (wholeList.get(counter14).get(0).equals(product_14.getText())) {
+                            wholeList.remove(counter14);
+                            section_14.setVisibility(View.GONE);
+                            writeCsv();
+                            readlagerbestand();
+                            sortlagerbestand();
+                            button_minus_14.setBackground(defaultBackground);
+                            button_minus_14.setBackgroundTintList(colorStateList);
+                            button_minus_14.setText("-");
+                            break;
+                        }
+                    }
+                }
+            }
+
+        });
+        product_14.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                edit_open();
+            }
+        });
+        change_button = findViewById(R.id.change_button);
+        change_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<List<String>> topLevelList = new ArrayList<>(Arrays.asList());
+                List<String> notTopLevelList = new ArrayList<>();
+                topLevelList.clear();
+                Log.d("test enty fiel", "entry fielt:" + entry_field_product_name.getText().toString());
+                for (int pluscounter = 0; pluscounter < wholeList.size(); pluscounter++) {
+                    if (wholeList.get(pluscounter).get(0).equals(product_14.getText().toString())) {
+                        wholeList.remove(pluscounter);
+                        Log.d("test enty fiel", "entry fielt:" + entry_field_product_name.getText().toString());
+                        notTopLevelList.add(entry_field_product_name.getText().toString());
+                        notTopLevelList.add(entry_field_product_number.getText().toString());
+                        topLevelList.add(notTopLevelList);
+                        Log.d("test topLevelList", "topLevelList="+ topLevelList);
+
+                        section_14.setVisibility(View.GONE);
+                        section_15.setVisibility(View.GONE);
+
+                        writeCsv();
+                        adddata(topLevelList);
+                        topLevelList.clear();
+                        wholeList.clear();
+                        sortlagerbestand();
+                        readlagerbestand();
+                        sortlagerbestand();
+                        break;
+                    }
+                }
+                container_new_product.setVisibility(View.GONE);
+                container_buttons_edit_product.setVisibility(View.GONE);
+                camera_button.setVisibility(View.VISIBLE);
+                add_button.setVisibility(View.VISIBLE);
+            }
+        });
+        stopp_button = findViewById(R.id.stopp_button);
+        stopp_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                edit_close();
+            }
+        });
+        button_new_product_minus = findViewById(R.id.button_new_product_minus);
+        button_new_product_plus = findViewById(R.id.button_new_product_plus);
+        button_new_product_minus = findViewById(R.id.button_new_product_minus);
+        button_new_product_plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String countString = entry_field_product_number.getText().toString();
+                // Convert value to a number and increment it
+                Integer count = Integer.parseInt(countString);
+                count++;
+                // Display the new value in the text view.
+                entry_field_product_number.setText(String.valueOf(count));
+            }
+        });
+        button_new_product_minus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String countString = entry_field_product_number.getText().toString();
+                // Convert value to a number and increment it
+                Integer count = Integer.parseInt(countString);
+                if (count >= 1){
+                    count--;
+                }
+
+                // Display the new value in the text view.
+                entry_field_product_number.setText(String.valueOf(count));
+            }
+        });
+        button_plus_15 = findViewById(R.id.button_plus_15);
+        number_15 = findViewById(R.id.number_15);
+        button_plus_15.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String countString = number_15.getText().toString();
+                // Convert value to a number and increment it
+                Integer count = Integer.parseInt(countString);
+                count++;
+
+                for (int plus15counter = 0; plus15counter < wholeList.size(); plus15counter++) {
+                    if (wholeList.get(plus15counter).get(0).equals(product_15.getText().toString())) {
+                        wholeList.get(plus15counter).set(1, count);
+                        break;
+                    }
+                }
+
+
+                // Display the new value in the text view.
+                number_15.setText(String.valueOf(count));
+                //save the cange
+                writeCsv();
+                if (count == 1){
+                    button_minus_15.setBackground(defaultBackground);
+                    button_minus_15.setBackgroundTintList(colorStateList);
+                    button_minus_15.setText("-");
+                }
+            }
+        });
+        button_minus_15 = findViewById(R.id.button_minus_15);
+        number_15 = findViewById(R.id.number_15);
+        button_minus_15.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String countString = number_15.getText().toString();
+                // Convert value to a number and decrement it
+                int count = Integer.parseInt(countString);
+                if (count > 0) {
+                    count--;
+                    for (int minus15counter = 0; minus15counter < wholeList.size(); minus15counter++) {
+                        if (wholeList.get(minus15counter).get(0).equals(product_15.getText().toString())) {
+                            wholeList.get(minus15counter).set(1, count);
+                            break;
+                        }
+                    }
+                    // Display the new value in the text view.
+                    number_15.setText(String.valueOf(count));
+                    //save the cange
+                    writeCsv();
+                    if (count == 0){
+                        button_minus_15.setBackgroundResource(R.drawable.delete_button_image);
+                        button_minus_15.setBackgroundTintList(colorStateList);
+                        button_minus_15.setText("");
+                    }
+
+                } else {
+                    for (int counter15 = 0; counter15 < wholeList.size(); counter15++) {
+                        if (wholeList.get(counter15).get(0).equals(product_15.getText())) {
+                            wholeList.remove(counter15);
+                            section_15.setVisibility(View.GONE);
+                            writeCsv();
+                            readlagerbestand();
+                            sortlagerbestand();
+                            button_minus_15.setBackground(defaultBackground);
+                            button_minus_15.setBackgroundTintList(colorStateList);
+                            button_minus_15.setText("-");
+                            break;
+                        }
+                    }
+                }
+            }
+
+        });
+        product_15.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                edit_open();
+            }
+        });
+        change_button = findViewById(R.id.change_button);
+        change_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<List<String>> topLevelList = new ArrayList<>(Arrays.asList());
+                List<String> notTopLevelList = new ArrayList<>();
+                topLevelList.clear();
+                Log.d("test enty fiel", "entry fielt:" + entry_field_product_name.getText().toString());
+                for (int pluscounter = 0; pluscounter < wholeList.size(); pluscounter++) {
+                    if (wholeList.get(pluscounter).get(0).equals(product_15.getText().toString())) {
+                        wholeList.remove(pluscounter);
+                        Log.d("test enty fiel", "entry fielt:" + entry_field_product_name.getText().toString());
+                        notTopLevelList.add(entry_field_product_name.getText().toString());
+                        notTopLevelList.add(entry_field_product_number.getText().toString());
+                        topLevelList.add(notTopLevelList);
+                        Log.d("test topLevelList", "topLevelList="+ topLevelList);
+
+                        section_15.setVisibility(View.GONE);
+                        //section_16.setVisibility(View.GONE);
+
+                        writeCsv();
+                        adddata(topLevelList);
+                        topLevelList.clear();
+                        wholeList.clear();
+                        sortlagerbestand();
+                        readlagerbestand();
+                        sortlagerbestand();
+                        break;
+                    }
+                }
+                container_new_product.setVisibility(View.GONE);
+                container_buttons_edit_product.setVisibility(View.GONE);
+                camera_button.setVisibility(View.VISIBLE);
+                add_button.setVisibility(View.VISIBLE);
+            }
+        });
+        stopp_button = findViewById(R.id.stopp_button);
+        stopp_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                edit_close();
+            }
+        });
+        button_new_product_minus = findViewById(R.id.button_new_product_minus);
+        button_new_product_plus = findViewById(R.id.button_new_product_plus);
+        button_new_product_minus = findViewById(R.id.button_new_product_minus);
+        button_new_product_plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String countString = entry_field_product_number.getText().toString();
+                // Convert value to a number and increment it
+                Integer count = Integer.parseInt(countString);
+                count++;
+                // Display the new value in the text view.
+                entry_field_product_number.setText(String.valueOf(count));
+            }
+        });
+        button_new_product_minus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String countString = entry_field_product_number.getText().toString();
+                // Convert value to a number and increment it
+                Integer count = Integer.parseInt(countString);
+                if (count >= 1){
+                    count--;
+                }
+
+                // Display the new value in the text view.
+                entry_field_product_number.setText(String.valueOf(count));
+            }
         });
 
 
@@ -1299,6 +2553,9 @@ public class MainActivity extends AppCompatActivity {
     private TextView product_10;
     private TextView product_11;
     private TextView product_12;
+    private TextView product_13;
+    private TextView product_14;
+    private TextView product_15;
     ////////////////////////
     private TextView number_1;
     private TextView number_2;
@@ -1312,6 +2569,9 @@ public class MainActivity extends AppCompatActivity {
     private TextView number_10;
     private TextView number_11;
     private TextView number_12;
+    private TextView number_13;
+    private TextView number_14;
+    private TextView number_15;
     /////////////////////////
     private ConstraintLayout section_1;
     private ConstraintLayout section_2;
@@ -1325,6 +2585,9 @@ public class MainActivity extends AppCompatActivity {
     private ConstraintLayout section_10;
     private ConstraintLayout section_11;
     private ConstraintLayout section_12;
+    private ConstraintLayout section_13;
+    private ConstraintLayout section_14;
+    private ConstraintLayout section_15;
 
 
     private void sortlagerbestand() {
@@ -1341,6 +2604,9 @@ public class MainActivity extends AppCompatActivity {
         product_10 = findViewById(R.id.product_10);
         product_11 = findViewById(R.id.product_11);
         product_12 = findViewById(R.id.product_12);
+        product_13 = findViewById(R.id.product_13);
+        product_14 = findViewById(R.id.product_14);
+        product_15 = findViewById(R.id.product_15);
         ///////////////////
         section_1 = findViewById(R.id.section_1);
         section_2 = findViewById(R.id.section_2);
@@ -1354,6 +2620,9 @@ public class MainActivity extends AppCompatActivity {
         section_10 = findViewById(R.id.section_10);
         section_11 = findViewById(R.id.section_11);
         section_12 = findViewById(R.id.section_12);
+        section_13 = findViewById(R.id.section_13);
+        section_14 = findViewById(R.id.section_14);
+        section_15 = findViewById(R.id.section_15);
         ///////////////////
         number_1 = findViewById(R.id.number_1);
         number_2 = findViewById(R.id.number_2);
@@ -1367,6 +2636,9 @@ public class MainActivity extends AppCompatActivity {
         number_10 = findViewById(R.id.number_10);
         number_11 = findViewById(R.id.number_11);
         number_12 = findViewById(R.id.number_12);
+        number_13 = findViewById(R.id.number_13);
+        number_14 = findViewById(R.id.number_14);
+        number_15 = findViewById(R.id.number_15);
         ///////////////////
 
 
@@ -1456,6 +2728,24 @@ public class MainActivity extends AppCompatActivity {
                         product_12.setText(productName);
                         section_12.setVisibility(View.VISIBLE);
                         number_12.setText(productquantity);
+                        section_13.setVisibility(View.GONE);
+                        break;
+                    case 13:
+                        product_13.setText(productName);
+                        section_13.setVisibility(View.VISIBLE);
+                        number_13.setText(productquantity);
+                        section_14.setVisibility(View.GONE);
+                        break;
+                    case 14:
+                        product_14.setText(productName);
+                        section_14.setVisibility(View.VISIBLE);
+                        number_14.setText(productquantity);
+                        section_15.setVisibility(View.GONE);
+                        break;
+                    case 15:
+                        product_15.setText(productName);
+                        section_15.setVisibility(View.VISIBLE);
+                        number_15.setText(productquantity);
                         break;
                     default:
                         break;
@@ -1491,6 +2781,8 @@ public class MainActivity extends AppCompatActivity {
                 if (oldValue == null) {
                     oldValue = 0;
                 }
+
+
                 String replaceKey = null;
                 for (Map.Entry<String, Integer> entry : dataMap.entrySet()) {
                     if (!entry.getKey().equals("Produkt") && entry.getValue() == value) {
@@ -1588,6 +2880,31 @@ public class MainActivity extends AppCompatActivity {
         EditText editText1 = findViewById(R.id.entry_field_product_name);
         editText.setText("0");
         editText1.setText("");
+    }
+    private void edit_open (){
+        change_button = findViewById(R.id.change_button);
+        stopp_button = findViewById(R.id.stopp_button);
+        container_new_product = findViewById(R.id.container_new_product);
+        container_buttons_edit_product = findViewById(R.id.container_buttons_edit_product);
+        entry_field_product_name = findViewById(R.id.entry_field_product_name);
+
+        container_new_product.setVisibility(View.VISIBLE);
+        container_buttons_edit_product.setVisibility(View.VISIBLE);
+        camera_button.setVisibility(View.GONE);
+        add_button.setVisibility(View.GONE);
+        entry_field_product_name.requestFocus();
+        InputMethodManager imm = (InputMethodManager)
+                getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(entry_field_product_name, InputMethodManager.SHOW_IMPLICIT);
+
+        entry_field_product_name = findViewById(R.id.entry_field_product_name);
+        entry_field_product_number = findViewById(R.id.entry_field_product_number);
+    }
+    private void edit_close(){
+        container_new_product.setVisibility(View.GONE);
+        container_buttons_edit_product.setVisibility(View.GONE);
+        camera_button.setVisibility(View.VISIBLE);
+        change_button.setVisibility(View.VISIBLE);
     }
 
 }
